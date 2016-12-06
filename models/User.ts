@@ -16,8 +16,8 @@ let userSchema = new mongoose.Schema({
         type:String
     }
 });
+  
+export default mongoose.model<IUser>('User', userSchema);
 
-// userSchema.methods.setPassword = (password) {
 
 // }
-export default mongoose.model<IUser>('User', userSchema);

@@ -8,7 +8,7 @@ import * as ejs from 'ejs';
 import Database from './mg';
 import routes from './routes/index';
 import users from './routes/users';
-
+import usersAPI from './api/users';
 let app = express();
 
 //connect MongoDB through mongoose file
@@ -30,7 +30,7 @@ app.use('/api', express.static(path.join(__dirname, 'api')));
 
 app.use('/', routes);
 app.use('/users', users);
-
+app.use('/api/users', usersAPI);
 
 // redirect 404 to home for the sake of AngularJS client-side routes
 app.get('/*', function(req, res, next) {
