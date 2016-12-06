@@ -5,12 +5,14 @@ import * as logger from 'morgan';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import * as ejs from 'ejs';
-
+import Database from './mg';
 import routes from './routes/index';
 import users from './routes/users';
 
 let app = express();
 
+//connect MongoDB through mongoose file
+Database.connect();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
