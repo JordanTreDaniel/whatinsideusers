@@ -5,9 +5,17 @@ namespace whatinsideusers.Controllers {
     }
 
     export class RegisterController {
+        public user;
+        public register() {
+
+        }
         public page = "Register";
     }
     export class LoginController {
+        public user;
+        public login() {
+
+        }
         public page = "Login";
     }
     export class AboutController {
