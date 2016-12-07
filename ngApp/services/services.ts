@@ -5,7 +5,7 @@ namespace whatinsideusers.Services {
             return this.UserResource.save(params).$promise;
         }
         public login(user) {
-            return this.UserResource.get('/').$promise;
+            return this.UserResource.save(user).$promise;
         }
         constructor($resource: ng.resource.IResourceService) {
             this.UserResource = $resource('/api/users');

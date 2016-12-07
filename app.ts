@@ -9,8 +9,29 @@ import Database from './mg';
 import routes from './routes/index';
 import users from './routes/users';
 import usersAPI from './api/users';
+import * as passport from 'passport';
+let LocalStrategy = require('passport-local').Strategy;
+import User from './models/User';
+import {verifyPassword} from './api/users';
 let app = express();
 
+// app.use(express.session({ secret: 'keyboard cat' }));
+app.use(passport.initialize());
+// app.use(passport.session());rs
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({username: username}, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!verifyPassword(user)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
 //connect MongoDB through mongoose file
 Database.connect();
 // view engine setup

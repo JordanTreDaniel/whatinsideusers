@@ -20,9 +20,9 @@ namespace whatinsideusers.Controllers {
     export class LoginController {
         public user;
         public login() {
-            return this.userService.login(this.user)
+            return this.userService.login({type: 'login', user: this.user, username: this.user.username, password: this.user.hash})
                 .then((results) => {
-                    console.log("logged in.", results);
+                    console.log("cntrl logged in.", results);
                 }).catch((err) => {
                     console.log("Not logged in", err);
                 });

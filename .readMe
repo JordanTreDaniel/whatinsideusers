@@ -1,0 +1,8 @@
+Dec 7, 2016
+I have left off trying to add in the login functionality, but I will go
+backwards to add the User.methods to the actual model and not in the api. It 
+wasn't working because I wasn't including fields for the methods in the 
+interface for the model.
+
+Dec 8, 2016
+
