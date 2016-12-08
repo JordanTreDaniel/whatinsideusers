@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "preinstall": "npm i --global bower",
+    "postinstall": "bower install",
     "start": "node ./bin/www"
   },
   "dependencies": {
