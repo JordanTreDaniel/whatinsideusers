@@ -6,6 +6,7 @@ import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import * as ejs from 'ejs';
 import Database from './mg';
+import ProductDatabase from './database/products';
 import routes from './routes/index';
 import users from './routes/users';
 import usersAPI from './api/users';
@@ -13,8 +14,13 @@ import * as passport from 'passport';
 let LocalStrategy = require('passport-local').Strategy;
 import User from './models/User';
 import {verifyPassword} from './api/users';
+let dotenv = require('dotenv');
+import productsAPI from './api/products';
 let app = express();
 
+if (app.get('env') === "development") {
+  dotenv.load();
+}
 // app.use(express.session({ secret: 'keyboard cat' }));
 app.use(passport.initialize());
 // app.use(passport.session());rs
@@ -33,7 +39,8 @@ passport.use(new LocalStrategy(
   }
 ));
 //connect MongoDB through mongoose file
-Database.connect();
+// Database.connect();
+ProductDatabase.connect();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -52,7 +59,7 @@ app.use('/api', express.static(path.join(__dirname, 'api')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/api/users', usersAPI);
-
+app.use('/api/products', productsAPI);
 // redirect 404 to home for the sake of AngularJS client-side routes
 app.get('/*', function(req, res, next) {
   if (/.js|.html|.css|templates|js|scripts/.test(req.path) || req.xhr) {

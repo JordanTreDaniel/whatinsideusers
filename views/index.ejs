@@ -6,19 +6,20 @@
   <meta charset="utf-8">
   <base href="/" />
   <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
   <link rel="stylesheet" href="/ngApp/css/site.css"/>
 </head>
 
 <body>
   <div class="container">
-        <h1>whatinsideusers</h1>
-        <div>
-          <a href="/">Home</a> /
-          <a href="/about">About</a>
-          <a href="/register">Register</a>
-          <a href="/login">Login</a>
-          
-        </div>
+  <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+  
+      <md-nav-item md-nav-click="" name="home"><a ui-sref="home">Home</a></md-nav-item>
+      <md-nav-item md-nav-click="" name="register"><a ui-sref="register">Register</a></md-nav-item>
+      <md-nav-item md-nav-click="" name="login"><a ui-sref="login">Login</a></md-nav-item>
+      
+    </md-nav-bar>
         <hr/>
         
         <ui-view></ui-view>

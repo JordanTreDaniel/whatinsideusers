@@ -1,4 +1,15 @@
-<h2>Home</h2>
-<p>
-    {{controller.message}}
-</p>
+
+<md-card ng-repeat="p in controller.products">   
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{p.name}} by {{p.maker}}</span>
+            <span class="md-subhead">{{p.description}}</span>
+        </md-card-title-text>
+        <md-card-media>
+            <img height="300"ng-src="{{p.images[0]}}"/>
+        </md-card-media>
+    </md-card-title>
+    <md-card-actions>
+        <a ng-click="controller.showDetail(p._id)"><md-button class="md-primary md-raised">Details</md-button></a>
+    </md-card-actions>
+</md-card>

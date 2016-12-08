@@ -2,8 +2,46 @@ namespace whatinsideusers.Controllers {
 
     export class HomeController {
         public message = 'Hello from the home page!';
+        public products;
+        public showDetail(id) {
+            this.$state.go('product', {id: id});
+        }
+        constructor(
+            private productService: whatinsideusers.Services.ProductService,
+            private $state: ng.ui.IStateService
+            ) {
+                productService.getProducts().then((products) => {
+                    this.products = products;
+                }).catch((err) => {
+                    console.log("Controller: Err getting products", err);
+                });
+        }
     }
-
+    export class ProductController {
+        public product;
+        public info;
+        public getInfo(ingredient) {
+            this.$http.get('https://en.wikipedia.org/w/api.php?action=opensearch&namespace=0&format=json&warningsaserror&origin=*&search=' + ingredient)
+            // this.$http.get('https://en.wikipedia.org/w/api.php?action=opensearch&search=zyz&limit=1&namespace=0&format=json&origin=*')
+                .then((information) => {
+                    this.info = information;
+                    console.log(this.info);
+                }).catch((err) => {
+                    console.log("Error fetching info");
+                }); 
+            
+        }
+        constructor(
+            private productService: whatinsideusers.Services.ProductService,
+            private $stateParams: ng.ui.IStateParamsService,
+            private $http: ng.IHttpService) {
+                this.productService.getProduct({id: $stateParams['id']}).then((product) => {
+                    this.product = product;
+                }).catch((err) => {
+                    console.log("Controller: Err getting product", err);
+                });
+        }
+    }
     export class RegisterController {
         public user;
         public register() {
@@ -31,6 +69,7 @@ namespace whatinsideusers.Controllers {
         constructor(private userService: whatinsideusers.Services.UserService) {}
         
     }
+
     export class AboutController {
         public message = 'Hello from the about page!';
     }

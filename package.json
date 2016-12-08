@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "preinstall": "npm i --global bower",
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -20,6 +21,7 @@
     "@types/mongodb": "^2.1.36",
     "@types/mongoose": "^4.7.0",
     "@types/morgan": "^1.7.31",
+    "@types/node": "0.0.2",
     "@types/passport": "^0.2.34",
     "@types/passport-local": "^1.0.29",
     "@types/serve-favicon": "^2.2.27",
@@ -27,6 +29,7 @@
     "cookie-parser": "~1.4.3",
     "crypto": "0.0.3",
     "debug": "~2.2.0",
+    "dotenv": "^2.0.0",
     "ejs": "~2.4.1",
     "express": "~4.13.4",
     "mongodb": "^2.2.12",
@@ -35,5 +38,8 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "serve-favicon": "~2.3.0"
+  }, 
+  "engines": {
+    "node": "6.9.1"
   }
 }

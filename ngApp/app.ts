@@ -3,7 +3,8 @@ namespace whatinsideusers {
     angular.module('whatinsideusers', ['ui.router', 'ngResource', 'ngMaterial']).config((
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
-        $locationProvider: ng.ILocationProvider
+        $locationProvider: ng.ILocationProvider,
+        $mdThemingProvider: ng.material.IThemingProvider
     ) => {
         // Define routes
         $stateProvider
@@ -11,6 +12,12 @@ namespace whatinsideusers {
                 url: '/',
                 templateUrl: '/ngApp/views/home.html',
                 controller: whatinsideusers.Controllers.HomeController,
+                controllerAs: 'controller'
+            })
+            .state('product', {
+                url: '/products/:id',
+                templateUrl: 'ngApp/views/product.html',
+                controller: whatinsideusers.Controllers.ProductController,
                 controllerAs: 'controller'
             })
             //Register views
@@ -43,6 +50,12 @@ namespace whatinsideusers {
 
         // Enable HTML5 navigation
         $locationProvider.html5Mode(true);
+
+        $mdThemingProvider.theme('default')
+            .primaryPalette('green')
+            .accentPalette('brown')
+            .warnPalette('deep-orange')
+            .backgroundPalette('indigo');
     });
 
     
