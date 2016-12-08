@@ -1,0 +1,29 @@
+emote:        bower angular-aria#^1.4.8               ECMDERR Failed to execute "git ls-remote --tags --heads https://github.com/angular/bower-angular-aria.git", exit code of #128 fatal: unable to access 'https://github.com/angular/bower-angular-aria.git/': Failed to connect to github.com port 443: Connection timed out
+remote:        
+remote:        Additional error details:
+remote:        fatal: unable to access 'https://github.com/angular/bower-angular-aria.git/': Failed to connect to github.com port 443: Connection timed out
+remote: 
+remote: -----> Build failed
+remote:        
+remote:        We're sorry this build is failing! You can troubleshoot common issues here:
+remote:        https://devcenter.heroku.com/articles/troubleshooting-node-deploys
+remote:        
+remote:        Some possible problems:
+remote:        
+remote:        - A module may be missing from 'dependencies' in package.json
+remote:        https://devcenter.heroku.com/articles/troubleshooting-node-deploys#ensure-you-aren-t-relying-on-untracked-dependencies
+remote:        
+remote:        Love,
+remote:        Heroku
+remote:        
+remote:  !     Push rejected, failed to compile Node.js app.
+remote: 
+remote:  !     Push failed
+remote: Verifying deploy....
+remote: 
+remote: !	Push rejected to fathomless-coast-69909.
+remote: 
+To https://git.heroku.com/fathomless-coast-69909.git
+ ! [remote rejected] master -> master (pre-receive hook declined)
+error: failed to push some refs to 'https://git.heroku.com/fathomless-coast-69909.git'
+Jordans-MacBook-Pro:whatinsideusers jordanchristley$ 
