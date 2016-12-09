@@ -14,7 +14,7 @@ let productSchema = new mongoose.Schema({
     description: {type: String, required: false},
     maker: String,     
     //ingredients: {type: [Ingredient], required: true, default: []}, //One to many relationship
-    
+    ingredients: {type: [String], required: true, default: []},
     admintags: {type: [String], required: true, default: []},
     usertags: {type: [String], required: false, default: []},
     //this is only false because it would error out telling me that it is required if i try to init it to empty array

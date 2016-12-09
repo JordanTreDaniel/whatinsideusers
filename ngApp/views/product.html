@@ -1,13 +1,10 @@
 <md-content>
-    <div layout="column" flex>
-        <div layout="row" layout-align="center">
-            <h2>{{controller.product.maker}}</h2>
-        </div>
-        <div layout="row" layout-align="center">
-            <h1>{{controller.product.name}}</h1>
-        </div>
-        <div layout="row" flex>
-            <div layout="column" flex="33">
+    <div layout="column" flex layout-align="center center">
+        <div layout="row" layout-align="center center" flex>
+            <div md-whiteframe="12" layout-align="center center"layout="column" flex="45">
+                <div layout="row" layout-align="center">
+                    <h1>{{controller.product.name}} by {{controller.product.maker}}</h1>
+                </div>
                 <div ng-repeat="img in controller.product.images">
                     <img width="100%"ng-src="{{img}}">
                 </div>
@@ -15,20 +12,24 @@
             <div flex>
             
             </div>
-            <div flex="50">
-                <h3>What's Inside</h3>
-                <br/>
-                <a  ng-click="controller.getInfo(ing)"class='ingredient-link' href="#" ng-repeat="ing in controller.product.ingredients track by $index">
-                    {{ing}}, 
-                </a>
+            <div md-whiteframe="12" layout-margin flex="50" layout="column">
+                <h2>What's Inside?</h2>
+                <div flex layout="row" layout-align="center">
+                    <h1><a class="ingredient-link"href="{{controller.info.data[3][0]}}">{{controller.info.data[1][0]}}</a></h1>
+                </div>
+                <div flex layout="row" layout-align="center">
+                    <p>{{controller.info.data[2][0]}}</p>
+                </div>
+                <div>
+                    <br>
+                    <br/>
+                    <a  ng-click="controller.getInfo(ing)"class='ingredient-link' href="#" ng-repeat="ing in controller.product.ingredients track by $index">
+                        {{ing}}, 
+                    </a>
+                </div>
             </div>
         </div>
-        <div layout="row" layout-align="center">
-            <h1><a class="ingredient-link"href="{{controller.info.data[3][0]}}">{{controller.info.data[1][0]}}</a></h1>
-        </div>
-        <div layout="row" layout-align="center">
-            <p>{{controller.info.data[2][0]}}</p>
-        </div>
+        
     </div>
 </md-content>
 

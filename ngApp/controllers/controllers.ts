@@ -3,18 +3,24 @@ namespace whatinsideusers.Controllers {
     export class HomeController {
         public message = 'Hello from the home page!';
         public products;
+        public searchField;
+        public searchQuery;
         public showDetail(id) {
             this.$state.go('product', {id: id});
+        }
+        public getProducts() {
+            this.productService.getProducts().then((products) => {
+                    this.products = products;
+                    console.log(this.products);
+                }).catch((err) => {
+                    console.log("Controller: Err getting products", err);
+                });
         }
         constructor(
             private productService: whatinsideusers.Services.ProductService,
             private $state: ng.ui.IStateService
             ) {
-                productService.getProducts().then((products) => {
-                    this.products = products;
-                }).catch((err) => {
-                    console.log("Controller: Err getting products", err);
-                });
+                this.getProducts();
         }
     }
     export class ProductController {

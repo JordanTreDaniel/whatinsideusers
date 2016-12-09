@@ -13,13 +13,13 @@
 
 <body>
   <div class="container">
-  <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+  <md-nav-bar md-theme="default" md-colors="::{'color': 'accent'}"md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
   
-      <md-nav-item md-nav-click="" name="home" ui-sref="home">Home</md-nav-item>
-      <md-nav-item md-nav-click="" name="register"><a ui-sref="register">Register</a></md-nav-item>
-      <md-nav-item md-nav-click="" name="login"><a ui-sref="login">Login</a></md-nav-item>
+      <md-nav-item md-nav-sref="home" name="home">Home</md-nav-item>
+      <md-nav-item md-nav-sref="register" name="register">Register</md-nav-item>
+      <md-nav-item md-nav-sref="login" name="login">Login</md-nav-item>
       
-    </md-nav-bar>
+    </md-nav-bar> 
         <hr/>
         
         <ui-view></ui-view>

@@ -1,15 +1,40 @@
-
-<md-card ng-repeat="p in controller.products">   
-    <md-card-title>
-        <md-card-title-text>
-            <span class="md-headline">{{p.name}} by {{p.maker}}</span>
-            <span class="md-subhead">{{p.description}}</span>
-        </md-card-title-text>
-        <md-card-media>
-            <img height="300"ng-src="{{p.images[0]}}"/>
-        </md-card-media>
-    </md-card-title>
-    <md-card-actions>
-        <a ng-click="controller.showDetail(p._id)"><md-button class="md-primary md-raised">Details</md-button></a>
-    </md-card-actions>
-</md-card>
+<md-content>
+    <div layout="column" flex>
+        <div flex>
+            <form ng-submit="controller.getProducts(controller.searchQuery)"layout="row">
+                <!--<md-input-container flex='20'>
+                    <md-select placeholder="Search Type" ng-model="controller.searchField">
+                        <md-option ng-value="name">Product Name</md-option>
+                        <md-option ng-value="maker">Product Maker</md-option>
+                        <md-option ng-value="description">General</md-option>
+                    </md-select>
+                </md-input-container>-->
+                <md-input-container flex>
+                    <label>Search Products</label>
+                    <input ng-model="controller.searchQuery">
+                </md-input-container>
+                <md-input-container>
+                    <md-button class="md-primary md-raised" type="submit">
+                        Search <md-icon>search</md-icon>
+                    </md-button>
+                </md-input-container>
+            </form>
+        </div>
+        <div layout="row" layout-wrap layout-align="center">
+            <md-card ng-repeat="p in controller.products">   
+                    <md-card-header>
+                        <span class="md-headline">{{p.name}} by {{p.maker}}</span>
+                    </md-card-header>
+                    <md-card-media layout="row" layout-align="center center">
+                        <img height="300"ng-src="{{p.images[0]}}"/>
+                    </md-card-media>
+                    <md-card-footer>
+                        <span class="md-subhead">{{p.description}}</span>                        
+                    </md-card-footer>
+                <md-card-actions>
+                    <a ng-click="controller.showDetail(p._id)"><md-button class="md-primary md-raised">Details</md-button></a>
+                </md-card-actions>
+            </md-card>
+        </div>
+    </div>
+</md-content>

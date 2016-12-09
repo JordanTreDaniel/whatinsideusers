@@ -51,11 +51,31 @@ namespace whatinsideusers {
         // Enable HTML5 navigation
         $locationProvider.html5Mode(true);
 
-        $mdThemingProvider.theme('default')
-            .primaryPalette('green')
-            .accentPalette('brown')
-            .warnPalette('deep-orange')
-            .backgroundPalette('indigo');
+        $mdThemingProvider.theme('jordan')
+            .primaryPalette('green', {
+                "default": "A100",
+                "hue-1": "200",
+                "hue-2": "300",
+                "hue-3": "400"
+            })
+            .accentPalette('brown', {
+                "default": "A100",
+                "hue-1": "200",
+                "hue-2": "300",
+                "hue-3": "400"
+            })
+            .warnPalette('deep-orange', {
+                "default": "A100",
+                "hue-1": "200",
+                "hue-2": "300",
+                "hue-3": "400"
+            })
+            // .backgroundPalette('deep-orange', {
+            //     "default": "A100",
+            //     "hue-1": "200",
+            //     "hue-2": "300",
+            //     "hue-3": "400"
+            // });
     });
 
     

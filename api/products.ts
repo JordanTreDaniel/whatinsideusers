@@ -6,6 +6,7 @@ let router = express.Router();
 
 router.get('/', (req, res, next) => {
         console.log("First statement triggered");
+        console.log("body", req.body, "params", req.params);
         Product.find({}).then((products) => {
             res.json(products);
         }).catch((err) => {
