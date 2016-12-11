@@ -22,5 +22,12 @@ router.get('/:id', (req, res, next) => {
         console.log("API: Error getting product");
     });
 });
-
+router.get('/query/:query', (req, res, next) => {
+    let query = req.params.query;
+    Product.find({$text: {$search: query}}).then((products)=> {
+        res.json({products: products})
+    }).catch((err) => {
+        console.log("Err in text search", err);
+    });
+});
 export default router;

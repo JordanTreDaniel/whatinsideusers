@@ -8,14 +8,28 @@ namespace whatinsideusers {
     ) => {
         // Define routes
         $stateProvider
+            .state('master', {
+                url: '/master', 
+                abstract: true,
+                templateUrl: '/ngApp/views/master.html',
+                controller: whatinsideusers.Controllers.MasterController,
+                controllerAs: "vm",
+                resolve: {
+                    secret: () => {
+                        return "Aardvark";
+                    }
+                }
+            })
             .state('home', {
-                url: '/',
+                url: '/browse',
+                parent: 'master',
                 templateUrl: '/ngApp/views/home.html',
                 controller: whatinsideusers.Controllers.HomeController,
                 controllerAs: 'controller'
             })
             .state('product', {
                 url: '/products/:id',
+                parent: 'master',
                 templateUrl: 'ngApp/views/product.html',
                 controller: whatinsideusers.Controllers.ProductController,
                 controllerAs: 'controller'
@@ -23,25 +37,29 @@ namespace whatinsideusers {
             //Register views
             .state('register', {
                 url: '/register', 
+                parent: 'master',
                 templateUrl: 'ngApp/views/register.html',
                 controller: whatinsideusers.Controllers.RegisterController,
                 controllerAs: "controller"
             })
             //Login views
             .state('login', {
-                url: '/login', 
+                url: '/login',
+                parent: 'master',
                 templateUrl: 'ngApp/views/login.html',
                 controller: whatinsideusers.Controllers.LoginController,
                 controllerAs: "controller"
             })
             .state('about', {
                 url: '/about',
+                parent: 'master',
                 templateUrl: '/ngApp/views/about.html',
                 controller: whatinsideusers.Controllers.AboutController,
                 controllerAs: 'controller'
             })
             .state('notFound', {
                 url: '/notFound',
+                parent: 'master',                
                 templateUrl: '/ngApp/views/notFound.html'
             });
 

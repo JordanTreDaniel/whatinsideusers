@@ -20,6 +20,6 @@ let productSchema = new mongoose.Schema({
     //this is only false because it would error out telling me that it is required if i try to init it to empty array
     images: {type: [String], required: true, default: []}
 });
-
+productSchema.index({ "$**": "text" });
 export default mongoose.model<IProduct>("Product", productSchema);
 

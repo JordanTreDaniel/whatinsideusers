@@ -5,7 +5,9 @@ let LocalStrategy = require('passport-local').Strategy;
 import * as crypto from 'crypto';
 let router = express.Router();
 
-
+router.get('/master', (req, res, next) => {
+  res.send('Reached the api');
+});
 passport.serializeUser(function(user, done) {
   done(null, user.id);
 });

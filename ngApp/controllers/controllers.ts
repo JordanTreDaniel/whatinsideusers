@@ -1,11 +1,23 @@
 namespace whatinsideusers.Controllers {
 
+    export class MasterController {
+        // public currentUser;
+        // constructor(
+        //     private userService: whatinsideusers.Services.UserService
+        // ) {
+        //     userService.
+        // }
+        public masterSecret: "Aardvark";
+    }
+
     export class HomeController {
         public message = 'Hello from the home page!';
         public products;
         public searchField;
         public searchQuery;
+        public masterSecret;
         public showDetail(id) {
+            console.log("I wanna drift away in the ", this.$state.current.data.blue);
             this.$state.go('product', {id: id});
         }
         public getProducts() {
@@ -16,11 +28,22 @@ namespace whatinsideusers.Controllers {
                     console.log("Controller: Err getting products", err);
                 });
         }
+        public search() {
+            this.queryService.search({query: this.searchQuery})
+                .then((results)=> {
+                    this.products = results.products;
+                }).catch((err) => {
+                    console.log("Controller: err searching", err);
+                })
+        }
         constructor(
             private productService: whatinsideusers.Services.ProductService,
-            private $state: ng.ui.IStateService
+            private queryService: whatinsideusers.Services.QueryService,
+            private $state: ng.ui.IStateService,
+            secret
             ) {
                 this.getProducts();
+                this.masterSecret = secret;
         }
     }
     export class ProductController {

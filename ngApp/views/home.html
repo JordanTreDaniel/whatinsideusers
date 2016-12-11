@@ -1,7 +1,13 @@
 <md-content>
     <div layout="column" flex>
+        <!--<div flex>
+            <h1>Secret: {{vm.masterSecret}}</h1>
+        </div> Child states do not inherit controllers!!!-->
         <div flex>
-            <form ng-submit="controller.getProducts(controller.searchQuery)"layout="row">
+            <h1>Secret: {{controller.masterSecret}}</h1>
+        </div>
+        <div flex>
+            <form ng-submit="controller.search()"layout="row">
                 <!--<md-input-container flex='20'>
                     <md-select placeholder="Search Type" ng-model="controller.searchField">
                         <md-option ng-value="name">Product Name</md-option>

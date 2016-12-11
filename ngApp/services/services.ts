@@ -11,6 +11,15 @@ namespace whatinsideusers.Services {
             this.ProductResource = $resource('/api/products/:id');
         }
     }
+    export class QueryService {
+        private QueryResource;
+        public search(query) {
+            return this.QueryResource.get(query).$promise;
+        }
+        constructor($resource: ng.resource.IResourceService) {
+            this.QueryResource = $resource('/api/products/query/:query');
+        }
+    }
     export class UserService {
         private UserResource;
         public register(params) {
@@ -23,7 +32,18 @@ namespace whatinsideusers.Services {
             this.UserResource = $resource('/api/users');
         }
     }
+    export class MasterUserService {
+        private MasterUserResource;
+        public getCurrentUser() {
+            return this.MasterUserResource.query().$promise;
+        }
+        constructor($resource: ng.resource.IResourceService) {
+            this.MasterUserResource = $resource('/api/users/master');
+        }
+    }
     angular.module('whatinsideusers').service('userService', UserService);
     angular.module('whatinsideusers').service('productService', ProductService);
+    angular.module('whatinsideusers').service('queryService', QueryService);
+    
     
 }
