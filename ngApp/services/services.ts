@@ -35,7 +35,7 @@ namespace whatinsideusers.Services {
     export class MasterUserService {
         private MasterUserResource;
         public getCurrentUser() {
-            return this.MasterUserResource.query().$promise;
+            return this.MasterUserResource.get().$promise;
         }
         constructor($resource: ng.resource.IResourceService) {
             this.MasterUserResource = $resource('/api/users/master');
@@ -44,6 +44,8 @@ namespace whatinsideusers.Services {
     angular.module('whatinsideusers').service('userService', UserService);
     angular.module('whatinsideusers').service('productService', ProductService);
     angular.module('whatinsideusers').service('queryService', QueryService);
+    angular.module('whatinsideusers').service('masterUserService', MasterUserService);
+    
     
     
 }

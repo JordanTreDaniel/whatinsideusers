@@ -17,7 +17,14 @@ namespace whatinsideusers {
                 resolve: {
                     secret: () => {
                         return "Aardvark";
-                    }
+                    },
+                    // user: (masterUserService: whatinsideusers.Services.MasterUserService) => {
+                    //     masterUserService.getCurrentUser().then((user) => {
+                    //         return user;
+                    //     }).catch((err) => {
+                    //         console.log("Error grabbing user", err);
+                    //     });
+                    // }
                 }
             })
             .state('home', {

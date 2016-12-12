@@ -6,7 +6,7 @@ import * as crypto from 'crypto';
 let router = express.Router();
 
 router.get('/master', (req, res, next) => {
-  res.send('Reached the api');
+  res.json('Reached the api');
 });
 passport.serializeUser(function(user, done) {
   done(null, user.id);

@@ -1,13 +1,16 @@
 namespace whatinsideusers.Controllers {
 
     export class MasterController {
-        // public currentUser;
-        // constructor(
-        //     private userService: whatinsideusers.Services.UserService
-        // ) {
-        //     userService.
-        // }
-        public masterSecret: "Aardvark";
+        public currentUser;
+        constructor(
+            private masterUserService: whatinsideusers.Services.MasterUserService
+        ) {
+            masterUserService.getCurrentUser().then((user) => {
+                this.currentUser = user;
+            }).catch((err) => {
+                console.log("Error grabbing user", err);
+            }); 
+        }
     }
 
     export class HomeController {
@@ -17,18 +20,21 @@ namespace whatinsideusers.Controllers {
         public searchQuery;
         public masterSecret;
         public showDetail(id) {
-            console.log("I wanna drift away in the ", this.$state.current.data.blue);
+            // console.log("I wanna drift away in the ", this.$state.current.data.blue);
+            //remember how to use this syntax
             this.$state.go('product', {id: id});
         }
         public getProducts() {
             this.productService.getProducts().then((products) => {
                     this.products = products;
-                    console.log(this.products);
                 }).catch((err) => {
                     console.log("Controller: Err getting products", err);
                 });
         }
         public search() {
+            //TODO: The search button should return all default products if 
+            // you haven't entered any text, but instead it keeps the products
+            //that were already on the page
             this.queryService.search({query: this.searchQuery})
                 .then((results)=> {
                     this.products = results.products;
