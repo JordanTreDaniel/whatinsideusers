@@ -16,6 +16,7 @@ import User from './models/User';
 import {verifyPassword} from './api/users';
 let dotenv = require('dotenv');
 import productsAPI from './api/products';
+
 let app = express();
 
 if (app.get('env') === "development") {
@@ -57,7 +58,7 @@ app.use('/ngApp', express.static(path.join(__dirname, 'ngApp')));
 app.use('/api', express.static(path.join(__dirname, 'api')));
 
 app.use('/', routes);
-app.use('/users', users);
+// app.use('/users', users);
 app.use('/api/users', usersAPI);
 app.use('/api/products', productsAPI);
 // redirect 404 to home for the sake of AngularJS client-side routes

@@ -80,7 +80,7 @@ namespace whatinsideusers.Controllers {
     export class RegisterController {
         public user;
         public register() {
-            return this.userService.register({type: "register", user: this.user})
+            return this.userRegisterService.register({user: this.user})
                 .then((results) => {
                     console.log("Registered.", results);
                 }).catch((err) => {
@@ -88,12 +88,12 @@ namespace whatinsideusers.Controllers {
                 });
         }
         public page = "Register";
-        constructor(private userService: whatinsideusers.Services.UserService) {}
+        constructor(private userRegisterService: whatinsideusers.Services.UserRegisterService) {}
     }
     export class LoginController {
         public user;
         public login() {
-            return this.userService.login({type: 'login', user: this.user, username: this.user.username, password: this.user.hash})
+            return this.userLoginService.login({username: this.user.username, hash: this.user.hash})
                 .then((results) => {
                     console.log("cntrl logged in.", results);
                 }).catch((err) => {
@@ -101,7 +101,7 @@ namespace whatinsideusers.Controllers {
                 });
         }
         public page = "Login";
-        constructor(private userService: whatinsideusers.Services.UserService) {}
+        constructor(private userLoginService: whatinsideusers.Services.UserLoginService) {}
         
     }
 

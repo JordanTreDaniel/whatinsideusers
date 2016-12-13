@@ -27,5 +27,12 @@ userSchema.methods.registerUser = (userObj, res) => {
         res.status(200).send("All done creating user");
     });
 }
+userSchema.methods.verifyPassword = (attempt) => {
+    if (this.hash === attempt) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 export default mongoose.model<IUser>('User', userSchema);
