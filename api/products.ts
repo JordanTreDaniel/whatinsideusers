@@ -1,7 +1,7 @@
 import * as express from 'express';
 
 import Product from '../models/product';
-
+import * as expjwt from 'express-jwt';
 let router = express.Router();
 
 router.get('/', (req, res, next) => {
@@ -13,7 +13,7 @@ router.get('/', (req, res, next) => {
             console.log(err);
         });
 });
-router.get('/:id', (req, res, next) => {
+router.get('/:id', expjwt({secret: "whatsinside"}), (req, res, next) => {
     console.log("Get by id triggered");
     let id = (req.params.id);
     Product.findOne({_id: id}).then((product)=> {

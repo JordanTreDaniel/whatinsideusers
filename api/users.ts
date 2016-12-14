@@ -7,23 +7,10 @@ import * as jwt from 'jsonwebtoken';
 import * as expjwt from 'express-jwt';
 let router = express.Router();
 
-router.get('/master', (req, res, next) => {
+router.get('/master', (req, res, next) => {  
   res.json('Reached the api');
 });
-
-let registerUser = (userObj, res) => {
-    let salt = crypto.randomBytes(16);
-    userObj.hash = crypto.pbkdf2Sync(userObj.hash, salt, 1000, 512, 'sha512');
-    User.create(userObj, (err, results) => {
-        if (err) console.log("Err creating User", err);
-        res.status(200).send("All done creating user");
-    });
-}
-
-// router.get('/', (req, res, next) => {
-//     console.log("Api method ran");
-//     res.json({message: "I have touched down in the api"});
-// });
+ 
 router.post('/register', (req, res, next) => {
     let user = req.body.user;    
     User.create(user, (err, results) => {
@@ -33,6 +20,7 @@ router.post('/register', (req, res, next) => {
 });
 router.post('/login', (req, res, next)=> {
     let form = req.body;
+    console.log(req);
     if(!form.username) res.status(400).send("User name is required");
     if(!form.hash) res.status(400).send("User name is required");
     User.findOne({username: form.username}).then((user) => {

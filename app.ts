@@ -13,32 +13,16 @@ import usersAPI from './api/users';
 import * as passport from 'passport';
 let LocalStrategy = require('passport-local').Strategy;
 import User from './models/User';
-import {verifyPassword} from './api/users';
 let dotenv = require('dotenv');
 import productsAPI from './api/products';
+import * as expjwt from 'express-jwt';
 
 let app = express();
 
 if (app.get('env') === "development") {
   dotenv.load();
 }
-// app.use(express.session({ secret: 'keyboard cat' }));
-app.use(passport.initialize());
-// app.use(passport.session());rs
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({username: username}, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (!verifyPassword(user)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
-    });
-  }
-));
+
 //connect MongoDB through mongoose file
 // Database.connect();
 ProductDatabase.connect();
@@ -56,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
 app.use('/ngApp', express.static(path.join(__dirname, 'ngApp')));
 app.use('/api', express.static(path.join(__dirname, 'api')));
-
+// app.use(expjwt({secret: "whatsinside"}).unless({path: ['/master/login']}));
 app.use('/', routes);
 // app.use('/users', users);
 app.use('/api/users', usersAPI);

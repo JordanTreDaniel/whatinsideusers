@@ -96,12 +96,15 @@ namespace whatinsideusers.Controllers {
             return this.userLoginService.login({username: this.user.username, hash: this.user.hash})
                 .then((results) => {
                     console.log("cntrl logged in.", results);
+                    this.$http.defaults.headers.common.Authorization = "Bearer " + results.token;
                 }).catch((err) => {
                     console.log("Not logged in", err);
                 });
         }
         public page = "Login";
-        constructor(private userLoginService: whatinsideusers.Services.UserLoginService) {}
+        constructor(private userLoginService: whatinsideusers.Services.UserLoginService,
+                    private $http: ng.IHttpProvider
+                    ) {}
         
     }
 
