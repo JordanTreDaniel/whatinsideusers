@@ -5,12 +5,24 @@ let LocalStrategy = require('passport-local').Strategy;
 import * as crypto from 'crypto';
 import * as jwt from 'jsonwebtoken';
 import * as expjwt from 'express-jwt';
+let jwtDecoder = require('jwt-decode');
 let router = express.Router();
 
 router.get('/master', (req, res, next) => {  
-  res.json('Reached the api');
+  console.log("Master read the req headers as", req.headers);
 });
- 
+
+router.get('/user', expjwt({secret: "whatsinside"}), (req, res, next) => {
+  let username = req.headers['authorization'];
+  username = username.substr(7);
+  console.log(username);
+  User.findOne({username: username}).then((user)=> {
+    res.json(user);
+  }).catch((err) => {
+    console.log("Err retrieving user", err);
+  })
+})
+
 router.post('/register', (req, res, next) => {
     let user = req.body.user;    
     User.create(user, (err, results) => {
@@ -20,7 +32,6 @@ router.post('/register', (req, res, next) => {
 });
 router.post('/login', (req, res, next)=> {
     let form = req.body;
-    console.log(req);
     if(!form.username) res.status(400).send("User name is required");
     if(!form.hash) res.status(400).send("User name is required");
     User.findOne({username: form.username}).then((user) => {

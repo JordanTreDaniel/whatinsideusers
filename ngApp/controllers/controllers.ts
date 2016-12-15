@@ -1,5 +1,5 @@
-namespace whatinsideusers.Controllers {
 
+namespace whatinsideusers.Controllers {
     export class MasterController {
         public currentUser;
         constructor(
