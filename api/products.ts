@@ -15,13 +15,7 @@ let router = express.Router();
 ////////////////////
 ////////////////////
 
-function parseUsername(request) {
-    let username = request.headers['authorization'];
-    username = username.substr(7);
-    username = jwtDecode(username);
-    username = username['username'];
-    console.log("your username is", username);
-}
+
 
 router.get('/', (req, res, next) => {
         Product.find({}).then((products) => {
@@ -30,8 +24,8 @@ router.get('/', (req, res, next) => {
             console.log(err);
         });
 });
+
 router.get('/:id', (req, res, next) => {
-    parseUsername(req);
     let id = (req.params.id);
     Product.findOne({_id: id}).then((product)=> {
         res.json(product);

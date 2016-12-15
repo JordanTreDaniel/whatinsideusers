@@ -18,13 +18,13 @@ namespace whatinsideusers {
                     secret: () => {
                         return "Aardvark";
                     },
-                    // user: (masterUserService: whatinsideusers.Services.MasterUserService) => {
-                    //     masterUserService.getCurrentUser().then((user) => {
-                    //         return user;
-                    //     }).catch((err) => {
-                    //         console.log("Error grabbing user", err);
-                    //     });
-                    // }
+                    user: (masterUserService: whatinsideusers.Services.MasterUserService) => {
+                        masterUserService.getCurrentUser().then((user) => {
+                            return user;
+                        }).catch((err) => {
+                            console.log("Error grabbing user", err);
+                        });
+                    }
                 }
             })
             .state('home', {
@@ -68,6 +68,13 @@ namespace whatinsideusers {
                 url: '/notFound',
                 parent: 'master',                
                 templateUrl: '/ngApp/views/notFound.html'
+            })
+            .state('dashboard', {
+                parent: 'master',
+                url: '/dashboard',
+                templateUrl: '/ngApp/views/dashboard.html',
+                controller: whatinsideusers.Controllers.DashboardController,
+                controllerAs: 'controller'
             });
 
         // Handle request for non-existent route

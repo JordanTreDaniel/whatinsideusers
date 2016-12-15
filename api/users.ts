@@ -5,11 +5,21 @@ let LocalStrategy = require('passport-local').Strategy;
 import * as crypto from 'crypto';
 import * as jwt from 'jsonwebtoken';
 import * as expjwt from 'express-jwt';
-let jwtDecoder = require('jwt-decode');
+let jwtDecode = require('jwt-decode');
 let router = express.Router();
 
 router.get('/master', (req, res, next) => {  
-  console.log("Master read the req headers as", req.headers);
+    let username = req.headers['authorization'];
+    username = username.substr(7);
+    username = jwtDecode(username);
+    username = username['username'];
+    User.findOne({username: username}).then((user) => {
+      console.log("Found the user", user);
+      res.json(user)
+    }).catch((err) => {
+      console.log("Master had err fetching user", err);
+    })
+
 });
 
 router.get('/user', expjwt({secret: "whatsinside"}), (req, res, next) => {

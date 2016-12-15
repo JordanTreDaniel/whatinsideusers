@@ -1,5 +1,6 @@
 
 namespace whatinsideusers.Controllers {
+
     export class MasterController {
         public currentUser;
         constructor(
@@ -18,7 +19,22 @@ namespace whatinsideusers.Controllers {
         public products;
         public searchField;
         public searchQuery;
+        public currentUser;
         public masterSecret;
+
+        constructor(
+            private productService: whatinsideusers.Services.ProductService,
+            private queryService: whatinsideusers.Services.QueryService,
+            private $state: ng.ui.IStateService,
+            // secret,
+            user
+            ) {
+                this.getProducts();
+                this.currentUser = user;
+                // this.masterSecret = secret
+                console.log("Home controller ", user);
+        }
+        
         public showDetail(id) {
             // console.log("I wanna drift away in the ", this.$state.current.data.blue);
             //remember how to use this syntax
@@ -42,15 +58,7 @@ namespace whatinsideusers.Controllers {
                     console.log("Controller: err searching", err);
                 })
         }
-        constructor(
-            private productService: whatinsideusers.Services.ProductService,
-            private queryService: whatinsideusers.Services.QueryService,
-            private $state: ng.ui.IStateService,
-            secret
-            ) {
-                this.getProducts();
-                this.masterSecret = secret;
-        }
+        
     }
     export class ProductController {
         public product;
@@ -97,17 +105,21 @@ namespace whatinsideusers.Controllers {
                 .then((results) => {
                     console.log("cntrl logged in.", results);
                     this.$http.defaults.headers.common.Authorization = "Bearer " + results.token;
+                    this.$state.go('home', null, {reload: true, notify:true});
                 }).catch((err) => {
                     console.log("Not logged in", err);
                 });
         }
         public page = "Login";
         constructor(private userLoginService: whatinsideusers.Services.UserLoginService,
-                    private $http: ng.IHttpProvider
+                    private $http: ng.IHttpProvider,
+                    private $state: ng.ui.IStateService
                     ) {}
         
     }
+    export class DashboardController {
 
+    }
     export class AboutController {
         public message = 'Hello from the about page!';
     }
