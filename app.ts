@@ -16,7 +16,7 @@ import User from './models/User';
 let dotenv = require('dotenv');
 import productsAPI from './api/products';
 import * as expjwt from 'express-jwt';
-
+let jwtDecode = require('jwt-decode');
 let app = express();
 
 if (app.get('env') === "development") {

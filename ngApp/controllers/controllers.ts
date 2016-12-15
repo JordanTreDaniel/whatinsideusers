@@ -4,13 +4,19 @@ namespace whatinsideusers.Controllers {
     export class MasterController {
         public currentUser;
         constructor(
-            private masterUserService: whatinsideusers.Services.MasterUserService
+            private masterUserService: whatinsideusers.Services.MasterUserService,
+            private $state: ng.ui.IStateService,
+            private $http: ng.IHttpProvider
         ) {
             masterUserService.getCurrentUser().then((user) => {
-                this.currentUser = user;
+                this.currentUser = user.user;
             }).catch((err) => {
                 console.log("Error grabbing user", err);
             }); 
+        }
+        public logout() {
+            this.$http.defaults.headers.common.Authorization = null;
+            this.$state.go('home', null, {reload: true});
         }
     }
 
@@ -25,14 +31,15 @@ namespace whatinsideusers.Controllers {
         constructor(
             private productService: whatinsideusers.Services.ProductService,
             private queryService: whatinsideusers.Services.QueryService,
+            private masterUserService: whatinsideusers.Services.MasterUserService,
             private $state: ng.ui.IStateService,
-            // secret,
-            user
             ) {
                 this.getProducts();
-                this.currentUser = user;
-                // this.masterSecret = secret
-                console.log("Home controller ", user);
+                masterUserService.getCurrentUser().then((results) => {
+                    this.currentUser = results.user;
+                }).catch((err) => {
+                    console.log("masterservice => Home err getting user", err);
+                });
         }
         
         public showDetail(id) {
@@ -72,7 +79,6 @@ namespace whatinsideusers.Controllers {
                 }).catch((err) => {
                     console.log("Error fetching info");
                 }); 
-            
         }
         constructor(
             private productService: whatinsideusers.Services.ProductService,

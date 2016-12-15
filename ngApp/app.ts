@@ -18,9 +18,11 @@ namespace whatinsideusers {
                     secret: () => {
                         return "Aardvark";
                     },
+                    ///You cannot access this 'user' from a child controller,
+                    //bc the controllers load before this property is defined
                     user: (masterUserService: whatinsideusers.Services.MasterUserService) => {
-                        masterUserService.getCurrentUser().then((user) => {
-                            return user;
+                        masterUserService.getCurrentUser().then((results) => {
+                            return results.user;    
                         }).catch((err) => {
                             console.log("Error grabbing user", err);
                         });

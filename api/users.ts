@@ -8,30 +8,35 @@ import * as expjwt from 'express-jwt';
 let jwtDecode = require('jwt-decode');
 let router = express.Router();
 
+let getUserFromJWT = (request) => {
+    let username = request.headers['authorization'];
+      username = username.substr(7);
+      username = jwtDecode(username);
+      username = username['username'];
+      return username;
+  }
+
 router.get('/master', (req, res, next) => {  
-    let username = req.headers['authorization'];
-    username = username.substr(7);
-    username = jwtDecode(username);
-    username = username['username'];
-    User.findOne({username: username}).then((user) => {
-      console.log("Found the user", user);
-      res.json(user)
+    let username = getUserFromJWT(req);
+    User.findOne({username: username}).then((results) => {
+      console.log("Found the user", results);
+      res.json({user: results});
     }).catch((err) => {
       console.log("Master had err fetching user", err);
     })
 
 });
 
-router.get('/user', expjwt({secret: "whatsinside"}), (req, res, next) => {
-  let username = req.headers['authorization'];
-  username = username.substr(7);
-  console.log(username);
-  User.findOne({username: username}).then((user)=> {
-    res.json(user);
-  }).catch((err) => {
-    console.log("Err retrieving user", err);
-  })
-})
+// router.get('/user', expjwt({secret: "whatsinside"}), (req, res, next) => {
+//   let username = req.headers['authorization'];
+//   username = username.substr(7);
+//   console.log(username);
+//   User.findOne({username: username}).then((user)=> {
+//     res.json(user);
+//   }).catch((err) => {
+//     console.log("Err retrieving user", err);
+//   })
+// })
 
 router.post('/register', (req, res, next) => {
     let user = req.body.user;    

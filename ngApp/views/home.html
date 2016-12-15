@@ -4,8 +4,7 @@
             <h1>Secret: {{vm.masterSecret}}</h1>
         </div> Child states do not inherit controllers!!!-->
         <div flex>
-            <pre>Secret: {{controller.masterSecret}}</pre>
-            <h1>Welcome, {{controller.currentUser.username}}!</h1>
+            <h1 ng-show="controller.currentUser">Welcome, {{controller.currentUser.username}}!</h1>
         </div>
         <div flex>
             <form ng-submit="controller.search()"layout="row">

@@ -1,6 +1,8 @@
 <md-nav-bar md-theme="default" md-colors="::{'color': 'accent'}"md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
       <md-nav-item md-nav-sref="home" name="home">Home</md-nav-item>
-      <md-nav-item md-nav-sref="register" name="register">Register</md-nav-item>
-      <md-nav-item md-nav-sref="login" name="login">Login</md-nav-item>
+      <md-nav-item md-nav-sref="register" name="register" ng-show="!vm.currentUser">Register</md-nav-item>
+      <md-nav-item md-nav-sref="login" name="login" ng-show="!vm.currentUser">Login</md-nav-item>
+      <md-nav-item md-nav-sref="dashboard" name="dashboard" ng-show="vm.currentUser">Dashboard</md-nav-item>
+      <md-nav-item md-nav-click="controller.logout()" name="logout" ng-show="vm.currentUser">Logout</md-nav-item>
 </md-nav-bar>
 <ui-view></ui-view>
