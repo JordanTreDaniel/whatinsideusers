@@ -103,13 +103,13 @@ namespace whatinsideusers.Controllers {
             return this.userRegisterService.register({user: this.user})
                 .then((results) => {
                     console.log("Registered.", results);
-                    this.login();
+                    this.login(this.user);
                 }).catch((err) => {
                     console.log("Not Registered", err);
                 });
         }
-        public login() {
-            return this.userLoginService.login({username: this.user.username, hash: this.user.hash})
+        public login(user) {
+            return this.userLoginService.login({username: user.username, hash: user.hash})
                 .then((results) => {
                     console.log("cntrl logged in.", results);
                     this.$http.defaults.headers.common.Authorization = "Bearer " + results.token;

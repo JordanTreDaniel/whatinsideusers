@@ -39,7 +39,12 @@ router.get('/master', (req, res, next) => {
 // })
 
 router.post('/register', (req, res, next) => {
-    let user = req.body.user;    
+    let user = req.body.user;
+    if (user.isAdmin == process.env.ADMIN_KEY) {
+          console.log("They're an admin now");
+        } else {
+          user.isAdmin = -1;
+        }
     User.create(user, (err, results) => {
         if (err) console.log("Err creating User", err);
         res.status(200).send("All done creating user");

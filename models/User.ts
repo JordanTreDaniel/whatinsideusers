@@ -5,6 +5,9 @@ import * as crypto from 'crypto';
 export interface IUser extends mongoose.Document {
     username:string,
     hash:string,
+    toAvoid:string[],
+    favProducts:string[],
+    isAdmin:number,
     registerUser(user:Object),
     loginUser(user:Object)
 }
@@ -17,6 +20,18 @@ let userSchema = new mongoose.Schema({
     hash: {
         required:true,
         type:String
+    },
+    toAvoid: {
+        type:[String],
+        default:[]
+    },
+    favProducts: {
+        type:[String],
+        default:[]
+    },
+    isAdmin: {
+        type:Number,
+        required:true,
     }
 });
 userSchema.methods.registerUser = (userObj, res) => {
