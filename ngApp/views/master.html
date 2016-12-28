@@ -3,6 +3,6 @@
       <md-nav-item md-nav-sref="register" name="register" ng-show="!vm.currentUser">Register</md-nav-item>
       <md-nav-item md-nav-sref="login" name="login" ng-show="!vm.currentUser">Login</md-nav-item>
       <md-nav-item md-nav-sref="dashboard" name="dashboard" ng-show="vm.currentUser">Dashboard</md-nav-item>
-      <md-nav-item md-nav-click="controller.logout()" name="logout" ng-show="vm.currentUser">Logout</md-nav-item>
+      <md-nav-item md-nav-click="vm.logout()" name="logout" ng-show="vm.currentUser">Logout</md-nav-item>
 </md-nav-bar>
 <ui-view></ui-view>

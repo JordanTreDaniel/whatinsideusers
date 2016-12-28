@@ -80,7 +80,7 @@ namespace whatinsideusers {
             });
 
         // Handle request for non-existent route
-        $urlRouterProvider.otherwise('/notFound');
+        $urlRouterProvider.otherwise('/master/browse');
 
         // Enable HTML5 navigation
         $locationProvider.html5Mode(true);

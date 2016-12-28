@@ -92,17 +92,34 @@ namespace whatinsideusers.Controllers {
         }
     }
     export class RegisterController {
+        constructor(
+            private userRegisterService: whatinsideusers.Services.UserRegisterService,
+            private userLoginService: whatinsideusers.Services.UserLoginService,
+            private $http: ng.IHttpProvider,
+            private $state: ng.ui.IStateService
+            ) {}
         public user;
         public register() {
             return this.userRegisterService.register({user: this.user})
                 .then((results) => {
                     console.log("Registered.", results);
+                    this.login();
                 }).catch((err) => {
                     console.log("Not Registered", err);
                 });
         }
+        public login() {
+            return this.userLoginService.login({username: this.user.username, hash: this.user.hash})
+                .then((results) => {
+                    console.log("cntrl logged in.", results);
+                    this.$http.defaults.headers.common.Authorization = "Bearer " + results.token;
+                    this.$state.go('home', null, {reload: true, notify:true});
+                }).catch((err) => {
+                    console.log("Not logged in", err);
+                });
+        }
         public page = "Register";
-        constructor(private userRegisterService: whatinsideusers.Services.UserRegisterService) {}
+        
     }
     export class LoginController {
         public user;
