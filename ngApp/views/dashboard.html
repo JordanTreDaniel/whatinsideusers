@@ -1,1 +1,48 @@
-<h1>Welcome to your dashboard, {{controller.currentUser}}!</h1>
+<div layout="column">
+    <h1 ng-show="controller.currentUser">Welcome to your dashboard, {{controller.currentUser.username}}!</h1>
+    <div layout="row">
+        <form ng-submit="controller.getIngredient()" layout="row">
+            <md-input-container>    
+                <label>Search for an Ingredient to view it</label>
+                <input type="text" ng-model=""
+            </md-input-container>
+        </form>
+    </div>
+    <div ng-if="controller.currentUser.isAdmin && controller.currentIngredient" layout="column">
+        <h1>{{controller.currentIngredient.names[0]}}</h1>
+        <div layout='row'>
+            <div layout="column">
+                <h2>Add Ingredients Here</h2>
+                <form layout="column" ng-submit="controller.addItem()">
+                    <md-input-container>
+                        <label>Names</label>
+                        <md-chips ng-model="controller.currentIngredient.names"><md-chips>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Foods that contain this Ingredient</label>
+                        <md-chips ng-model="controller.currentIngredient.foods"><md-chips>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Definition</label>
+                        <input type="text" ng-model="controller.currentIngredient.definition"><md-chips>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Description</label>
+                        <input type="text" ng-model="controller.currentIngredient.description"><md-chips>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Admin Tags</label>
+                        <md-chips ng-model="controller.currentIngredient.adminTags"><md-chips>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>User Tags</label>
+                        <md-chips ng-model="controller.currentIngredient.userTags"><md-chips>
+                    </md-input-container>
+                    <md-input-container>   
+                        <md-button>Add</md-button>
+                    </md-input-container>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

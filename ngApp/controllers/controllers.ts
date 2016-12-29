@@ -141,7 +141,19 @@ namespace whatinsideusers.Controllers {
         
     }
     export class DashboardController {
-
+        constructor(
+            private masterUserService: whatinsideusers.Services.MasterUserService,
+            private $state: ng.ui.IStateService,
+            private ingredientService: whatinsideusers.Services.IngredientService)
+            {   masterUserService.getCurrentUser().then((user) => {
+                    this.currentUser = user.user;
+                }).catch((err) => {
+                    console.log("Error grabbing user", err);
+                });
+        }
+        public currentUser;
+        public select;
+        public currentIngredient;
     }
     export class AboutController {
         public message = 'Hello from the about page!';
