@@ -1,19 +1,33 @@
 <div layout="column">
     <h1 ng-show="controller.currentUser">Welcome to your dashboard, {{controller.currentUser.username}}!</h1>
+
+
+    <!--This div is for searching Ingredients and selecting one to work with-->
     <div layout="row">
         <form ng-submit="controller.getIngredient()" layout="row">
             <md-input-container>    
                 <label>Search for an Ingredient to view it</label>
-                <input type="text" ng-model=""
+                <input type="text" ng-model="controller.ingSearch">
+            </md-input-container>
+            <md-input-container>    
+                <md-button type='submit' class="md-raised md-accent">Search Ing</md-button>
             </md-input-container>
         </form>
+        <div layout="column" ng-show="controller.searchedIngredients">
+            <div ng-repeat="ing in controller.searchedIngredients track by $index"
+                ng-click="controller.pickIngredient(ing)">
+                {{ing.names[0]}} - {{ing.definition}}
+            </div>
+        </div>
     </div>
-    <div ng-if="controller.currentUser.isAdmin && controller.currentIngredient" layout="column">
-        <h1>{{controller.currentIngredient.names[0]}}</h1>
+
+    <!-- This div is for working on one individual ingredient-->
+    <div ng-if="controller.currentUser.isAdmin" layout="column">
+        <h1 ng-if="controller.currentIngredient">{{controller.currentIngredient.names[0]}}</h1>
         <div layout='row'>
             <div layout="column">
                 <h2>Add Ingredients Here</h2>
-                <form layout="column" ng-submit="controller.addItem()">
+                <form layout="column" ng-submit="controller.modifyIngredient()">
                     <md-input-container>
                         <label>Names</label>
                         <md-chips ng-model="controller.currentIngredient.names"><md-chips>
@@ -39,7 +53,7 @@
                         <md-chips ng-model="controller.currentIngredient.userTags"><md-chips>
                     </md-input-container>
                     <md-input-container>   
-                        <md-button>Add</md-button>
+                        <md-button type="submit" class="md-accent">Add/Modify</md-button>
                     </md-input-container>
                 </form>
             </div>

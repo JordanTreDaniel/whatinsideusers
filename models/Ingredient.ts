@@ -18,4 +18,5 @@ let ingredientSchema = new mongoose.Schema({
     userTags: [String]
 });
 
+ingredientSchema.index({ names: 'text' })
 export default mongoose.model<IIngredient>('Ingredient', ingredientSchema);

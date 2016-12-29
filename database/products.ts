@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
-import Product from '../models/product';
+import Product from '../models/Product';
+import Ingredient from '../models/Ingredient'
 import * as mongodb from 'mongodb';
 
     class ProductClass {
@@ -104,6 +105,8 @@ export default class ProductDatabase {
     public static connect() {
 
         mongoose.connect(process.env.PRODUCTS_URI).then(() => {
+
+            
             // mongoose.connection.db.dropDatabase().then(() => {
             //     Product.create(products).then(()=> {
             //         console.log("Products created");
@@ -113,6 +116,22 @@ export default class ProductDatabase {
             // }).catch((err) => {
             //     console.log("Err dropping db", err);
             // });
+
+
+            // Ingredient.create({
+            //     names: ['anthrax', 'poison'],
+            //     foods: ['Really dumb mistake'],
+            //     definition: "Very bad poison",
+            //     description: "I can't really describe it",
+            //     adminTags: ["poison", "avoid"],
+            //     userTags: ["cool", "dumb"]
+            // }).then((r) => {
+            //     console.log("ingredient seeded", r);
+            // }).catch((err) => {
+            //     console.log("Error seeding ing", err);
+            // })
+
+
             console.log("product Database connected");
         }).catch((err) => {
             console.log("Err connecting", err);

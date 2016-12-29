@@ -52,8 +52,8 @@ namespace whatinsideusers.Services {
             this.IngredientResource = $resource('/api/ingredients/:name');
         }
         private IngredientResource;
-        public ping() {
-            return this.IngredientResource.get().$promise;
+        public saveIngredient(ing) {
+            return this.IngredientResource.save(ing).$promise;
         }
         public getIngredient(name) {
             return this.IngredientResource.get(name).$promise;

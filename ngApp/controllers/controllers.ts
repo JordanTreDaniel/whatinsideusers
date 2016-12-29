@@ -150,10 +150,32 @@ namespace whatinsideusers.Controllers {
                 }).catch((err) => {
                     console.log("Error grabbing user", err);
                 });
+                
         }
         public currentUser;
         public select;
         public currentIngredient;
+        public searchedIngredients;
+        public ingSearch;
+        public getIngredient() {
+            this.ingredientService.getIngredient({name: this.ingSearch}).then((results) => {
+                    console.log("Got back", results.results);
+                    this.searchedIngredients = results.results;
+                }).catch((err) => {
+                    console.log("Error grabbing ingredient", err);
+                });
+        }
+        public modifyIngredient() {
+            this.ingredientService.saveIngredient({ingredient: this.currentIngredient})
+                .then((results) => {
+                    console.log("Saved ing", results.results);
+                }).catch((err) => {
+                    console.log("Error saving ing", err);
+                });
+        }
+        public pickIngredient(ing) {
+            this.currentIngredient = ing;
+        }
     }
     export class AboutController {
         public message = 'Hello from the about page!';
