@@ -5,8 +5,7 @@ let router = express.Router();
 
 //Allow for searching for ingredients
 router.get('/:name', (req, res, next) => {
-    let name = req.body.name;
-    console.log("req.body is", req.body);
+    let name = req.params.name;
     Ingredient.find({$text: {$search: name}}).then((results) => {
         res.json({results: results});
     }).catch((err) => {
@@ -25,8 +24,9 @@ router.post('/', (req, res, next) => {
 })
 
 //Allow for deleting ingredients
-router.delete('/', (req, res, next) => {
-    let id = req.body.id;
+router.delete('/:name', (req, res, next) => {
+    let id = req.params.name;
+    console.log("body and params", req.body, req.params);
     Ingredient.findByIdAndRemove({_id: id}).then((results) => {
         res.json({results: results});
     }).catch((err) => {

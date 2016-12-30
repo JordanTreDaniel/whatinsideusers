@@ -49,7 +49,7 @@ namespace whatinsideusers.Services {
     }
     export class IngredientService {
         constructor($resource: ng.resource.IResourceService) {
-            this.IngredientResource = $resource("/api/ingredients");
+            this.IngredientResource = $resource("/api/ingredients/:name");
         }
         private IngredientResource;
         public search(name) {

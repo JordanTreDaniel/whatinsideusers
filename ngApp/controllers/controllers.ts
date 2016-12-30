@@ -166,7 +166,7 @@ namespace whatinsideusers.Controllers {
             });
         }
         public delete() {
-            this.ingredientService.delete({id: this.currentIng._id}).then((results) => {
+            this.ingredientService.delete({name: this.currentIng._id}).then((results) => {
                 console.log("DELETED", results.results);
             }).catch((err) => {
                 console.log("Err deleting ing", err);
