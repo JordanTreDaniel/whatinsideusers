@@ -1,5 +1,5 @@
 
-namespace whatinsideusers.Controllers {
+namespace whatinsideusers.Controllers { 
 
     export class MasterController {
         public currentUser;
@@ -141,6 +141,37 @@ namespace whatinsideusers.Controllers {
         
     }
     export class DashboardController {
+        constructor(private ingredientService: whatinsideusers.Services.IngredientService) {
+            
+        }
+        public ingSearch;
+        public ingList;
+        public currentIng;
+        public search() {
+            this.ingredientService.search({name: this.ingSearch}).then((results) => {
+                this.ingList = results.results;
+                this.currentIng = results.results[0];
+            }).catch((err) => {
+                console.log("Err searching ingredients", err);
+            });
+        }
+        public selectIng(ingredient) {
+            this.currentIng = ingredient;
+        }
+        public save() {
+            this.ingredientService.save({ingredient: this.currentIng}).then((results) => {
+                console.log("SAVED", results.results);
+            }).catch((err) => {
+                console.log("Err saving ing", err);
+            });
+        }
+        public delete() {
+            this.ingredientService.delete({id: this.currentIng._id}).then((results) => {
+                console.log("DELETED", results.results);
+            }).catch((err) => {
+                console.log("Err deleting ing", err);
+            });
+        }
 
     }
     export class AboutController {

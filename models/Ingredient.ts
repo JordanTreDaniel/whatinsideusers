@@ -19,6 +19,6 @@ let ingredientSchema = new mongoose.Schema({
 });
 
 //This is the easiest way to make the ingredient's names field searchable.
-ingredientSchema.index({names: 'text'});
+ingredientSchema.index({names: 'text'}); 
 
 export default mongoose.model<IIngredient>('Ingredient', ingredientSchema);

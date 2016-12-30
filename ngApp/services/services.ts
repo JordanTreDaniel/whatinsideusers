@@ -47,11 +47,28 @@ namespace whatinsideusers.Services {
             this.MasterUserResource = $resource('/api/users/master');
         }
     }
+    export class IngredientService {
+        constructor($resource: ng.resource.IResourceService) {
+            this.IngredientResource = $resource("/api/ingredients");
+        }
+        private IngredientResource;
+        public search(name) {
+            return this.IngredientResource.get(name).$promise;
+        }
+        public save(ing) {
+            return this.IngredientResource.save(ing).$promise;
+        }
+        public delete(id) {
+            return this.IngredientResource.delete(id).$promise;
+        }
+    }
     angular.module('whatinsideusers').service('userRegisterService', UserRegisterService);
     angular.module('whatinsideusers').service('userLoginService', UserLoginService);    
     angular.module('whatinsideusers').service('productService', ProductService);
     angular.module('whatinsideusers').service('queryService', QueryService);
     angular.module('whatinsideusers').service('masterUserService', MasterUserService);
+    angular.module('whatinsideusers').service('ingredientService', IngredientService);
+    
     
     
     

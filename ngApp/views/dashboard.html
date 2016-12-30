@@ -1,1 +1,66 @@
 <h1>Welcome to your dashboard, {{controller.currentUser}}!</h1>
+
+
+<!--Make this unseen to regular users later on-->
+<div layout="column">   
+    <!--This is the div where searching and selecting of currentIng happens-->
+    <div layout="row">
+        <!--Ing Search-->
+        <form ng-submit="controller.search()" layout="column">
+            <input type='text' ng-model="controller.ingSearch">
+            <button type="submit">Search</button>
+        </form> <!--Ing Search-->
+        <!--Ing List Display-->
+        <div layout="column">
+            <div ng-repeat='ing in controller.ingList' ng-click="controller.selectIng(ing)">
+                <span>{{ing.names[0]}} - {{ing.definition}}</span>
+            </div>
+        </div><!--Ing List Display-->
+    </div><!--Ing Search and Select-->
+    <!--Current Ingredient WorkStation-->
+    <div layout="row">
+        <!--Form to view and edit current ing-->
+        <div flex="75" layout="column">
+            <form ng-submit="controller.save()" layout="column">
+                <md-input-container>   
+                    <label>Names</label>
+                    <md-chips ng-model="controller.currentIng.names"></md-chips>
+                </md-input-container>
+                <md-input-container>   
+                    <label>Foods that contain this ingredient</label>
+                    <md-chips ng-model="controller.currentIng.foods"></md-chips>
+                </md-input-container>
+                <md-input-container>   
+                    <label>Definition</label>
+                    <input type="text" ng-model="controller.currentIng.definition"></input type="text">
+                </md-input-container>
+                <md-input-container>   
+                    <label>Description</label>
+                    <input type="text" ng-model="controller.currentIng.description"></input type="text">
+                </md-input-container>
+                <md-input-container>   
+                    <label>Admin Tags</label>
+                    <md-chips ng-model="controller.currentIng.adminTags"></md-chips>
+                </md-input-container>
+                <md-input-container>   
+                    <label>User Tags</label>
+                    <md-chips ng-model="controller.currentIng.userTags"></md-chips>
+                </md-input-container>
+                <md-input-container>   
+                    <md-button type="submit" class="md-raised md-primary"> 
+                        Save
+                    </md-button>
+                </md-input-container>
+            </form>
+        </div>
+        <!--Buttons to delete or save-->
+        <div flex layout="column">
+            <md-button ng-click="controller.save()" class="md-raised md-primary"> 
+                Save
+            </md-button>
+            <md-button ng-click="controller.delete()" class="md-raised md-warn"> 
+                Delete
+            </md-button>
+        </div>
+    </div>
+</div>

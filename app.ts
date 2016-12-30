@@ -10,11 +10,12 @@ import ProductDatabase from './database/products';
 import routes from './routes/index';
 import users from './routes/users';
 import usersAPI from './api/users';
+import productsAPI from './api/products';
+import ingredientsAPI from './api/ingredients';
 import * as passport from 'passport';
 let LocalStrategy = require('passport-local').Strategy;
 import User from './models/User';
 let dotenv = require('dotenv');
-import productsAPI from './api/products';
 import * as expjwt from 'express-jwt';
 let jwtDecode = require('jwt-decode');
 let app = express();
@@ -45,6 +46,7 @@ app.use('/', routes);
 // app.use('/users', users);
 app.use('/api/users', usersAPI);
 app.use('/api/products', productsAPI);
+app.use('/api/ingredients', ingredientsAPI);
 // redirect 404 to home for the sake of AngularJS client-side routes
 app.get('/*', function(req, res, next) {
   if (/.js|.html|.css|templates|js|scripts/.test(req.path) || req.xhr) {
