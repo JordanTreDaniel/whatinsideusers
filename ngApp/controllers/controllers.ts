@@ -149,8 +149,12 @@ namespace whatinsideusers.Controllers {
         public currentIng;
         public search() {
             this.ingredientService.search({name: this.ingSearch}).then((results) => {
-                this.ingList = results.results;
-                this.currentIng = results.results[0];
+                if (results.results.length < 1) {
+                    this.ingList = [{names: ["No ingredients have names matching your search"]}];
+                } else {
+                    this.ingList = results.results;
+                    this.currentIng = results.results[0];
+                }
             }).catch((err) => {
                 console.log("Err searching ingredients", err);
             });
@@ -169,8 +173,22 @@ namespace whatinsideusers.Controllers {
             this.ingredientService.delete({name: this.currentIng._id}).then((results) => {
                 console.log("DELETED", results.results);
             }).catch((err) => {
+                if (err.statusText == "Not Found") {
+                    alert("The ingredient you're trying to delete doesn't exist in the database, of course, that's not a problem because you wanted to delete it anyway.    ")
+                }
                 console.log("Err deleting ing", err);
             });
+        }
+        public clearCurrentIng() {
+            this.currentIng = {
+                names: [],
+                foods: [],
+                definition: "",
+                description: "", 
+                adminTags: [],
+                userTags: []
+            }
+            console.log("This.currentIng", this.currentIng);
         }
 
     }

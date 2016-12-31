@@ -17,7 +17,10 @@
             </div>
         </div><!--Ing List Display-->
     </div><!--Ing Search and Select-->
+    <br>
+    <br>
     <!--Current Ingredient WorkStation-->
+    <h1 ng-model="controller.currentIng.names[0]"></h1>
     <div layout="row">
         <!--Form to view and edit current ing-->
         <div flex="75" layout="column">
@@ -57,6 +60,9 @@
         <div flex layout="column">
             <md-button ng-click="controller.save()" class="md-raised md-primary"> 
                 Save
+            </md-button>
+            <md-button ng-click="controller.clearCurrentIng()" class="md-raised md-accent"> 
+                New Empty Ingredient
             </md-button>
             <md-button ng-click="controller.delete()" class="md-raised md-warn"> 
                 Delete
