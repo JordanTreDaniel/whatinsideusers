@@ -16,10 +16,20 @@ router.get('/:name', (req, res, next) => {
 //Allow for saving ingredients
 router.post('/', (req, res, next) => {
     let ing = req.body.ingredient;
-    Ingredient.update({_id: ing._id}, ing, {upsert: true}).then((results) => {
-        res.json({results: results});
-    }).catch((err) => {
-        console.log("Err saving ing", err);
+    //check to see if we are working on ingredient
+    Ingredient.find({_id: ing._id}).then((results) => {
+        if (results[0]._id == null) {
+            //if we dont find a match, create one
+            Ingredient.create(ing).catch((err) => console.log("Trouble creating doc", err));
+            console.log("created One");
+            res.json({results: results});
+        } else {
+            //if we do find a match, update it
+            Ingredient.update({_id: ing._id}, ing).catch((err) => console.log("Trouble updating doc", err));
+            console.log("updated One");            
+            res.json({results: "Update complete!"});
+            
+        };
     })
 })
 
