@@ -9,7 +9,6 @@ namespace whatinsideusers {
         // Define routes
         $stateProvider
             .state('master', {
-                url: '/master', 
                 abstract: true,
                 templateUrl: '/ngApp/views/master.html',
                 controller: whatinsideusers.Controllers.MasterController,
@@ -80,7 +79,7 @@ namespace whatinsideusers {
             });
 
         // Handle request for non-existent route
-        $urlRouterProvider.otherwise('/master/browse');
+        $urlRouterProvider.otherwise('/browse');
 
         // Enable HTML5 navigation
         $locationProvider.html5Mode(true);
