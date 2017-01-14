@@ -5,6 +5,8 @@ export interface IIngredient extends mongoose.Document {
     foods: string[],
     definition: string,
     description: string,
+    healthPro: string,
+    healthCon: string,
     adminTags: string[],
     userTags: string[]
 }
@@ -14,6 +16,8 @@ let ingredientSchema = new mongoose.Schema({
     foods: {type: [String], required: true, default: []},
     definition: String,
     description: String,
+    healthPro: String,
+    healthCon: String,
     adminTags: [String],
     userTags: [String]
 });

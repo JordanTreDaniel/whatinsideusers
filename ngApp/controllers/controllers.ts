@@ -184,7 +184,9 @@ namespace whatinsideusers.Controllers {
                 names: [],
                 foods: [],
                 definition: "",
-                description: "", 
+                description: "",
+                healthPro: "",
+                healthCon: "",
                 adminTags: [],
                 userTags: []
             }
