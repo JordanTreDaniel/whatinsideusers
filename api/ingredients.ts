@@ -17,15 +17,23 @@ router.get('/:name', (req, res, next) => {
 router.post('/', (req, res, next) => {
     let ing = req.body.ingredient;
     //check to see if we are working on ingredient
-    Ingredient.find({_id: ing._id}).then((results) => {
-        if (results[0]._id == null) {
+
+    Ingredient.find({names: {$in: ing.names}}).then((results) => {
+        console.log("Find statement produced", results);
+        if (results.length < 1) {
             //if we dont find a match, create one
-            Ingredient.create(ing).catch((err) => console.log("Trouble creating doc", err));
+            Ingredient.create(ing)
+            .then((results) => console.log("Created", results))
+            .catch((err) => console.log("Trouble creating doc", err));
             console.log("created One");
             res.json({results: results});
-        } else {
+        } else if (results.length > 1) {
+            //TODO: Handle situations in which more than one ingredient is returned,
+            //TODO: ...instead of assuming the first should be the one updated.
             //if we do find a match, update it
-            Ingredient.update({_id: ing._id}, ing).catch((err) => console.log("Trouble updating doc", err));
+            Ingredient.update({_id: results[0]._id}, ing)
+            .then((results) => console.log("Updated,", results))
+            .catch((err) => console.log("Trouble updating doc", err));
             console.log("updated One");            
             res.json({results: "Update complete!"});
             
