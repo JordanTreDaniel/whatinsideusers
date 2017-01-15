@@ -14,11 +14,22 @@
             </div>
             <div md-whiteframe="12" layout-margin flex="50" layout="column">
                 <h2>What's Inside?</h2>
-                <div flex layout="row" layout-align="center">
-                    <h1><a class="ingredient-link"href="{{controller.info.data[3][0]}}">{{controller.info.data[1][0]}}</a></h1>
-                </div>
-                <div flex layout="row" layout-align="center">
-                    <p>{{controller.info.data[2][0]}}</p>
+                <div ng-if="controller.currentIng">
+                    <!--This will be the place to show all the info.-->
+                    <!--Title-->
+                    <h2 ng-model="controller.currentIng.names[0]">{{controller.currentIng.names[0]}}</h2>
+                    <!--Definition-->
+                    <b ng-if="controller.currentIng.definition">What is it?</b>
+                    <p ng-model="controller.currentIng.definition">{{controller.currentIng.definition}}</p>
+                    <!--Description-->
+                    <b ng-if="controller.currentIng.description">Why is in my food?</b>
+                    <p ng-model="controller.currentIng.description">{{controller.currentIng.description}}</p>
+                    <!--Health Cons-->
+                    <b ng-if="controller.currentIng.healthCons">Health Cons</b>
+                    <p ng-model="controller.currentIng.healthCons">{{controller.currentIng.healthCons}}</p>
+                    <!--Health Pros-->
+                    <b ng-if="controller.currentIng.healthPros">Health Pros</b>
+                    <p ng-model="controller.currentIng.healthPros">{{controller.currentIng.healthPros}}</p>
                 </div>
                 <div>
                     <br>

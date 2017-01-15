@@ -70,18 +70,21 @@ namespace whatinsideusers.Controllers {
     export class ProductController {
         public product;
         public info;
+        public currentIng;
         public getInfo(ingredient) {
-            this.$http.get('https://en.wikipedia.org/w/api.php?action=opensearch&namespace=0&format=json&warningsaserror&origin=*&search=' + ingredient)
-            // this.$http.get('https://en.wikipedia.org/w/api.php?action=opensearch&search=zyz&limit=1&namespace=0&format=json&origin=*')
-                .then((information) => {
-                    this.info = information;
-                    console.log(this.info);
-                }).catch((err) => {
-                    console.log("Error fetching info");
-                }); 
+            this.ingredientService.search({name: ingredient})
+            .then((results) => {
+                console.log("Found these", results);
+                this.currentIng = results.results[0];
+                console.log("Current ing is", this.currentIng);
+                
+            }).catch((err) => {
+                console.log("Err getting ing", err);
+            });
         }
         constructor(
             private productService: whatinsideusers.Services.ProductService,
+            private ingredientService: whatinsideusers.Services.IngredientService,
             private $stateParams: ng.ui.IStateParamsService,
             private $http: ng.IHttpService) {
                 this.productService.getProduct({id: $stateParams['id']}).then((product) => {
@@ -90,6 +93,7 @@ namespace whatinsideusers.Controllers {
                     console.log("Controller: Err getting product", err);
                 });
         }
+
     }
     export class RegisterController {
         constructor(

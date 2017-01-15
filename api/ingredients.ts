@@ -6,6 +6,7 @@ let router = express.Router();
 //Allow for searching for ingredients
 router.get('/:name', (req, res, next) => {
     let name = req.params.name;
+    console.log("searching for", name);
     Ingredient.find({$text: {$search: name}}).then((results) => {
         res.json({results: results});
     }).catch((err) => {
