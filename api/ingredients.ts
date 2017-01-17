@@ -7,7 +7,12 @@ let router = express.Router();
 router.get('/:name', (req, res, next) => {
     let name = req.params.name;
     console.log("searching for", name);
-    Ingredient.find({$text: {$search: name}}).then((results) => {
+    Ingredient.find(
+    { $text: { $search: name } },
+        { score: { $meta: "textScore" } })
+    .sort( { score: { $meta: "textScore" } } )
+    .then((results) => {
+        console.log("This is the order returned", results);
         res.json({results: results});
     }).catch((err) => {
         console.log("Err searching ingredients", err);

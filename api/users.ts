@@ -1,7 +1,7 @@
 import * as express from 'express';
 import User from '../models/User';
-import * as passport from 'passport';
-let LocalStrategy = require('passport-local').Strategy;
+
+
 import * as crypto from 'crypto';
 import * as jwt from 'jsonwebtoken';
 import * as expjwt from 'express-jwt';
