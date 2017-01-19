@@ -33,7 +33,7 @@ router.post('/', (req, res, next) => {
             .catch((err) => console.log("Trouble creating doc", err));
             console.log("created One");
             res.json({results: results});
-        } else if (results.length > 1) {
+        } else if (results.length >= 1) {
             //TODO: Handle situations in which more than one ingredient is returned,
             //TODO: ...instead of assuming the first should be the one updated.
             //if we do find a match, update it
