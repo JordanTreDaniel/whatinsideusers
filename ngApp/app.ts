@@ -1,6 +1,6 @@
 namespace whatinsideusers {
 
-    angular.module('whatinsideusers', ['ui.router', 'ngResource', 'ngMaterial']).config((
+    angular.module('whatinsideusers', ['ui.router', 'ngResource', 'ngMaterial', 'ngMessages']).config((
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
         $locationProvider: ng.ILocationProvider,

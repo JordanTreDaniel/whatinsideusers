@@ -40,21 +40,43 @@ router.get('/master', (req, res, next) => {
 
 router.post('/register', (req, res, next) => {
     let user = req.body.user;
+    //validate form
+    if (!user.username || !user.hash) {
+      res.json({message: "Field(s) missing"});
+    }
+
+    //check for admin privileges
     if (user.isAdmin == process.env.ADMIN_KEY) {
-          console.log("They're an admin now");
-        } else {
-          user.isAdmin = -1;
-        }
+      console.log("They're an admin now");
+    } else {
+      user.isAdmin = -1;
+    }
+    //Create the user
     User.create(user, (err, results) => {
-        if (err) console.log("Err creating User", err);
-        res.status(200).send("All done creating user");
+        if (err) {
+          console.log("Err creating User", err);
+          res.json({err: err});
+        } else {
+          res.status(200).send("All done creating user");
+        }
     });
 });
 router.post('/login', (req, res, next)=> {
+    //get the info
     let form = req.body;
+
+    //validate the info
     if(!form.username) res.status(400).send("User name is required");
     if(!form.hash) res.status(400).send("User name is required");
+
+    //Search for a user
     User.findOne({username: form.username}).then((user) => {
+      //If we don't find one..
+      if (user === null) {
+        res.json({message: "Non-existent user"});
+      }
+
+      //If we do, validate password
       if (form.hash === user.hash) {
         var myToken = jwt.sign({username: form.username}, "whatsinside");
         res.status(200).json({token: myToken});

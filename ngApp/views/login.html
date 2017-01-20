@@ -1,18 +1,27 @@
 
 <div layout="column" layout-align="center">
     <md-content layout="row" layout-align="center">
-        <form layout="column" layout-align="center" ng-submit="controller.login()">
-            <md-input-container>
-                <label>Username:</label>
-                <input type="text" ng-model="controller.user.username"/>
-            </md-input-container>
-            <md-input-container>
-                <label>Password:</label>
-                <input type="password" ng-model="controller.user.hash"/>
-            </md-input-container>
-            <md-input-container>
-                <md-button type="submit" class="md-primary md-raised">Login</md-button>
-            </md-input-container>
-        </form>
+        <div layout="column" flex="40">
+            <form layout="column" layout-align="center" ng-submit="controller.login()" novalidate name="loginForm">
+                <md-input-container>
+                    <label>Username:</label>
+                    <input type="text" ng-required="true" ng-model="controller.user.username" name="username"/>
+                </md-input-container>
+                <md-input-container>
+                    <label>Password:</label>
+                    <input type="password" ng-required="true" ng-model="controller.user.hash" name="password"/>
+                </md-input-container>
+                <md-input-container>
+                    <md-button type="submit" class="md-primary md-raised" ng-disabled="loginForm.$invalid">Login</md-button>
+                </md-input-container>
+            </form>
+            <div layout="column">
+                <span ng-show="loginForm.username.$error.required && loginForm.username.$touched">Username is required</span><br/>
+                <!-- I want this error message to go away once someone focuses on the fields again -->
+                <!-- It also shows up once the form has been submitted, before the redirect. -->
+                <span ng-show="loginForm.$submitted && !loginForm.username.$pending">Something went wrong! Make sure that you have typed everything in correctly.</span><br/>
+                <span ng-show="loginForm.password.$error.required && loginForm.password.$touched">Password is required</span><br/>                
+            </div>
+        </div>
     </md-content>
 </div>

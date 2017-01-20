@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import * as passport from 'passport';
 import * as crypto from 'crypto';
-
+import * as unique from 'mongoose-unique-validator';
 export interface IUser extends mongoose.Document {
     username:string,
     hash:string,
@@ -15,7 +15,8 @@ export interface IUser extends mongoose.Document {
 let userSchema = new mongoose.Schema({
     username: {
         required:true,
-        type:String
+        type:String,
+        unique: true
     },
     hash: {
         required:true,
@@ -49,5 +50,5 @@ userSchema.methods.verifyPassword = (attempt) => {
         return false;
     }
 }
-
+userSchema.plugin(unique);
 export default mongoose.model<IUser>('User', userSchema);

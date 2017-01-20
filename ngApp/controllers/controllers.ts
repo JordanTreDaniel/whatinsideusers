@@ -106,8 +106,12 @@ namespace whatinsideusers.Controllers {
         public register() {
             return this.userRegisterService.register({user: this.user})
                 .then((results) => {
-                    console.log("Registered.", results);
+                    if (results.err) {
+                        console.log("Not registered", results.err);
+                    } else {
+                        console.log("Registered.", results);
                     this.login(this.user);
+                    }
                 }).catch((err) => {
                     console.log("Not Registered", err);
                 });
@@ -128,11 +132,17 @@ namespace whatinsideusers.Controllers {
     export class LoginController {
         public user;
         public login() {
+            console.log("logging in", this.user);
             return this.userLoginService.login({username: this.user.username, hash: this.user.hash})
                 .then((results) => {
-                    console.log("cntrl logged in.", results);
-                    this.$http.defaults.headers.common.Authorization = "Bearer " + results.token;
-                    this.$state.go('home', null, {reload: true, notify:true});
+                    //If it fails to find a user or validate password
+                    if (results.message === "Non-existent user") {
+                        console.log("Something went wrong");
+                    } else {
+                        console.log("cntrl logged in.", results);
+                        this.$http.defaults.headers.common.Authorization = "Bearer " + results.token;
+                        this.$state.go('home', null, {reload: true, notify:true});
+                    }
                 }).catch((err) => {
                     console.log("Not logged in", err);
                 });
