@@ -7,7 +7,16 @@ import * as jwt from 'jsonwebtoken';
 import * as expjwt from 'express-jwt';
 let jwtDecode = require('jwt-decode');
 let router = express.Router();
-
+let register = (user) => {
+    user.salt = crypto.randomBytes(16);
+    user.hash = crypto.pbkdf2Sync(user.hash, user.salt, 1000, 512, 'sha512');
+}
+let verifyPassword = (attempt, user) => {
+    console.log("I am going to try ", attempt, "on", user);
+    attempt = crypto.pbkdf2Sync(attempt, user.salt, 1000, 512, 'sha512');
+    return (user.hash === attempt);
+       
+}
 let getUserFromJWT = (request) => {
     let username = request.headers['authorization'];
       username = username.substr(7);
@@ -27,19 +36,13 @@ router.get('/master', (req, res, next) => {
 
 });
 
-// router.get('/user', expjwt({secret: "whatsinside"}), (req, res, next) => {
-//   let username = req.headers['authorization'];
-//   username = username.substr(7);
-//   console.log(username);
-//   User.findOne({username: username}).then((user)=> {
-//     res.json(user);
-//   }).catch((err) => {
-//     console.log("Err retrieving user", err);
-//   })
-// })
-
 router.post('/register', (req, res, next) => {
-    let user = req.body.user;
+    let user = new User();
+    user.username = req.body.user.username;
+    user.hash = req.body.user.hash;
+    user.isAdmin = req.body.user.isAdmin;
+    
+    
     //validate form
     if (!user.username || !user.hash) {
       res.json({message: "Field(s) missing"});
@@ -51,6 +54,13 @@ router.post('/register', (req, res, next) => {
     } else {
       user.isAdmin = -1;
     }
+
+    //Set the auth criteria
+    //Once I figure out how to work auth I will do this.
+
+    // register(user);
+    user.salt = "Doesn't matter"
+
     //Create the user
     User.create(user, (err, results) => {
         //I have checks to make sure the unique fields are unique, using plugin
@@ -81,8 +91,10 @@ router.post('/login', (req, res, next)=> {
       }
 
       //If we do, validate password
-      if (form.hash === user.hash) {
-        var myToken = jwt.sign({username: form.username}, "whatsinside");
+      // if (verifyPassword(form.hash, user)) {
+        //use the above line once encryption is working
+        if (form.hash === user.hash) {
+        var myToken = jwt.sign({username: user.username}, "whatsinside");
         res.status(200).json({token: myToken});
       } else {
         res.status(400).send("Bad Login");

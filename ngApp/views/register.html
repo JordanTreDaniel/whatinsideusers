@@ -5,15 +5,15 @@
             <form layout="column" layout-align="center" ng-submit="controller.register()" name="registerForm">
                 <md-input-container>
                     <label>Username:</label>
-                    <input type="text" ng-focus="controller.formWorkTrue()" ng-blur="controller.formWorkFalse()"ng-model="controller.user.username" ng-required='true' name="username"/>
+                    <input type="text" ng-change="controller.clearErrMsg()"ng-focus="controller.formWorkTrue()" ng-blur="controller.formWorkFalse()"ng-model="controller.user.username" ng-required='true' name="username"/>
                 </md-input-container>
                 <md-input-container>
                     <label>Password:</label>
-                    <input type="password" ng-focus="controller.formWorkTrue()" ng-blur="controller.formWorkFalse()"ng-model="controller.user.hash" ng-required='true' name="password"/>
+                    <input type="password" ng-change="controller.clearErrMsg()"ng-focus="controller.formWorkTrue()" ng-blur="controller.formWorkFalse()"ng-model="controller.user.hash" ng-required='true' name="password"/>
                 </md-input-container>
                 <md-input-container>
                     <label>Admin Key:</label>
-                    <input type="password" ng-focus="controller.formWorkTrue()" ng-blur="controller.formWorkFalse()"ng-model="controller.user.isAdmin"/>
+                    <input type="password" ng-change="controller.clearErrMsg()"ng-focus="controller.formWorkTrue()" ng-blur="controller.formWorkFalse()"ng-model="controller.user.isAdmin"/>
                 </md-input-container>
                 <md-input-container>
                     <md-button type="submit" class="md-primary md-raised">Register</md-button>

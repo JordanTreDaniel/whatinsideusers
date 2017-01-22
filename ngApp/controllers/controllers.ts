@@ -112,6 +112,9 @@ namespace whatinsideusers.Controllers {
         public formWorkFalse() {
             this.formWorking = false;
         }
+        public clearErrMsg() {
+            this.regError = "";
+        }
         public register() {
             return this.userRegisterService.register({user: this.user})
                 .then((results) => {
@@ -152,7 +155,11 @@ namespace whatinsideusers.Controllers {
         public formWorkFalse() {
             this.formWorking = false;
         }
+        public clearErrMsg() {
+            this.loginError = "";
+        }
         public login() {
+            this.formWorkFalse();
             return this.userLoginService.login({username: this.user.username, hash: this.user.hash})
                 .then((results) => {
                     //If it fails to find a user or validate password
@@ -166,6 +173,7 @@ namespace whatinsideusers.Controllers {
                     }
                 }).catch((err) => {
                     console.log("Not logged in", err);
+                    this.loginError = err.data;
                 });
         }
         

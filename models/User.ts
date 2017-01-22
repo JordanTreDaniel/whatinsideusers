@@ -5,11 +5,12 @@ import * as unique from 'mongoose-unique-validator';
 export interface IUser extends mongoose.Document {
     username:string,
     hash:string,
+    salt:string,
     toAvoid:string[],
     favProducts:string[],
     isAdmin:number,
-    registerUser(user:Object),
-    loginUser(user:Object)
+    register(user:Object),
+    login(user:Object)
 }
 
 let userSchema = new mongoose.Schema({
@@ -19,6 +20,10 @@ let userSchema = new mongoose.Schema({
         unique: true
     },
     hash: {
+        required:true,
+        type:String
+    },
+    salt: {
         required:true,
         type:String
     },
@@ -35,20 +40,16 @@ let userSchema = new mongoose.Schema({
         required:true,
     }
 });
-userSchema.methods.registerUser = (userObj, res) => {
-    let salt = crypto.randomBytes(16);
-    this.hash = crypto.pbkdf2Sync(this.hash, salt, 1000, 512, 'sha512');
-    this.create(userObj, (err, results) => {
-        if (err) console.log("Err creating User", err);
-        res.status(200).send("All done creating user");
-    });
-}
-userSchema.methods.verifyPassword = (attempt) => {
-    if (this.hash === attempt) {
-        return true;
-    } else {
-        return false;
-    }
-}
+// userSchema.method('register', () => {
+//     this.salt = crypto.randomBytes(16);
+//     this.hash = crypto.pbkdf2Sync(this.hash, this.salt, 1000, 512, 'sha512');
+// });
+// userSchema.methods.verifyPassword = (attempt) => {
+//     if (this.hash === attempt) {
+//         return true;
+//     } else {
+//         return false;
+//     }
+// }
 userSchema.plugin(unique);
 export default mongoose.model<IUser>('User', userSchema);
