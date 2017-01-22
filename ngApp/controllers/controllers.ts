@@ -103,11 +103,21 @@ namespace whatinsideusers.Controllers {
             private $state: ng.ui.IStateService
             ) {}
         public user;
+        public formWorking = false;
+        public page = "Register";
+        public regError;        
+        public formWorkTrue() {
+            this.formWorking = true;
+        }
+        public formWorkFalse() {
+            this.formWorking = false;
+        }
         public register() {
             return this.userRegisterService.register({user: this.user})
                 .then((results) => {
-                    if (results.err) {
-                        console.log("Not registered", results.err);
+                    let errors = results.err;
+                    if (errors) {
+                        this.regError = `Sorry, there is a problem with the ${errors.errors[Object.keys(errors.errors)[0]].path} that you have selected.`
                     } else {
                         console.log("Registered.", results);
                     this.login(this.user);
@@ -125,20 +135,31 @@ namespace whatinsideusers.Controllers {
                 }).catch((err) => {
                     console.log("Not logged in", err);
                 });
-        }
-        public page = "Register";
-        
+        }        
     }
     export class LoginController {
+        constructor(private userLoginService: whatinsideusers.Services.UserLoginService,
+                    private $http: ng.IHttpProvider,
+                    private $state: ng.ui.IStateService
+                    ) {}
         public user;
+        public page = "Login";        
+        public formWorking = false;
+        public loginError;
+        public formWorkTrue() {
+            this.formWorking = true;
+        }
+        public formWorkFalse() {
+            this.formWorking = false;
+        }
         public login() {
-            console.log("logging in", this.user);
             return this.userLoginService.login({username: this.user.username, hash: this.user.hash})
                 .then((results) => {
                     //If it fails to find a user or validate password
-                    if (results.message === "Non-existent user") {
+                    if (results.message) {
                         console.log("Something went wrong");
-                    } else {
+                        this.loginError = results.message;
+                    } else if (!results.message){
                         console.log("cntrl logged in.", results);
                         this.$http.defaults.headers.common.Authorization = "Bearer " + results.token;
                         this.$state.go('home', null, {reload: true, notify:true});
@@ -147,11 +168,7 @@ namespace whatinsideusers.Controllers {
                     console.log("Not logged in", err);
                 });
         }
-        public page = "Login";
-        constructor(private userLoginService: whatinsideusers.Services.UserLoginService,
-                    private $http: ng.IHttpProvider,
-                    private $state: ng.ui.IStateService
-                    ) {}
+        
         
     }
     export class DashboardController {

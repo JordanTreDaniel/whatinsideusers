@@ -53,10 +53,13 @@ router.post('/register', (req, res, next) => {
     }
     //Create the user
     User.create(user, (err, results) => {
+        //I have checks to make sure the unique fields are unique, using plugin
         if (err) {
+          //Plugin will raise error if username is taken, then we send it.
           console.log("Err creating User", err);
           res.json({err: err});
         } else {
+          //If there is no error raised, send back correct response.
           res.status(200).send("All done creating user");
         }
     });
@@ -66,14 +69,15 @@ router.post('/login', (req, res, next)=> {
     let form = req.body;
 
     //validate the info
-    if(!form.username) res.status(400).send("User name is required");
-    if(!form.hash) res.status(400).send("User name is required");
+    if(!form.username || !form.hash) {
+      res.status(400).send("User name is required");
+    }
 
     //Search for a user
     User.findOne({username: form.username}).then((user) => {
       //If we don't find one..
       if (user === null) {
-        res.json({message: "Non-existent user"});
+        res.json({message: "Bad Login"});
       }
 
       //If we do, validate password
@@ -81,7 +85,7 @@ router.post('/login', (req, res, next)=> {
         var myToken = jwt.sign({username: form.username}, "whatsinside");
         res.status(200).json({token: myToken});
       } else {
-        res.status(400).send("The password is incorrect");
+        res.status(400).send("Bad Login");
       }
     }).catch((err) => {
       console.log("Err logging in", err);
