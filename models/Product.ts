@@ -21,5 +21,5 @@ let productSchema = new mongoose.Schema({
     images: {type: [String], required: true, default: []}
 });
 productSchema.index({ "$**": "text" });
-export default mongoose.model<IProduct>("Product", productSchema);
+export const Product = mongoose.model<IProduct>("Product", productSchema);
 
