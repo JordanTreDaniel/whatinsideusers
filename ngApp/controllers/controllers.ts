@@ -190,15 +190,23 @@ namespace whatinsideusers.Controllers {
         constructor(
             private ingredientService: whatinsideusers.Services.IngredientService,
             private masterUserService: whatinsideusers.Services.MasterUserService,
-            
+            private userTagService: whatinsideusers.Services.UserTagService
             ) {
             masterUserService.getCurrentUser().then((user) => {
                 this.currentUser = user.user;
+                //retrieve the user's tag
+                userTagService.getTag({id: user.user._id}).then((results) => {
+                    this.userTag = results.tag;
+                    console.log("user tag", this.userTag);
+                }).catch((err) => {
+                    console.log("Error retreiving the tag", err);
+                })
             }).catch((err) => {
                 console.log("Error grabbing user", err);
             }); 
         }
         public currentUser;
+        public userTag;
         public ingSearch;
         public ingList;
         public currentIng;
