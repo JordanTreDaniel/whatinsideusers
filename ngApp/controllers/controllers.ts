@@ -123,7 +123,7 @@ namespace whatinsideusers.Controllers {
                     if (errors) {
                         this.regError = `Sorry, there is a problem with the ${errors.errors[Object.keys(errors.errors)[0]].path} that you have selected.`
                     } else {
-                        console.log("Registered.", results);
+                        this.user = results.results;
                         //Generate a tag for the user to store preferences and such
                         this.userTagService.generate({id: this.user._id}).then((results) => {
                             console.log("Gen tag success", results);

@@ -70,7 +70,7 @@ router.post('/register', (req, res, next) => {
           res.json({err: err});
         } else {
           //If there is no error raised, send back correct response.
-          res.status(200).send("All done creating user");
+          res.status(200).json({results: results});
         }
     });
 });

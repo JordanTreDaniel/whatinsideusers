@@ -64,7 +64,7 @@ namespace whatinsideusers.Services {
     }
     export class UserTagService {
         constructor($resource: ng.resource.IResourceService) {
-            this.NewTagResource = $resource('/api/usertags/generate/:id');
+            this.NewTagResource = $resource('/api/usertags/generate');
             this.TagResource = $resource('/api/usertags/:id');
         }
         public NewTagResource;

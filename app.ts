@@ -12,7 +12,7 @@ import users from './routes/users';
 import usersAPI from './api/users';
 import productsAPI from './api/products';
 import ingredientsAPI from './api/ingredients';
-import userTagsAPI from './api/usertags';
+import userTagsAPI from './api/usertags'; 
 import * as passport from 'passport';
 let LocalStrategy = require('passport-local').Strategy;
 import User from './models/User';

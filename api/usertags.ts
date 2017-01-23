@@ -13,9 +13,9 @@ router.get('/:id', (req, res, next) => {
 });
 
 //You can generate a new user tag
-router.post("/generate/:id", (req, res, next) => {
+router.post("/generate", (req, res, next) => {
     let tag = {
-        owner: req.params.id
+        owner: req.body.id
     }
     UserTag.create(tag).then((results) => {
         res.json({results: results});
