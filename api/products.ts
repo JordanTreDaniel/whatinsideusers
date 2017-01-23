@@ -1,5 +1,5 @@
 import * as express from 'express';
-import Product from '../models/product';
+import Product from './../models/product';
 import * as expjwt from 'express-jwt';
 let jwtDecode = require('jwt-decode');
 let router = express.Router();

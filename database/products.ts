@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import Product from '../models/product';
+import Product from './../models/product';
 import * as mongodb from 'mongodb';
 
     class ProductClass {
