@@ -6,11 +6,9 @@ export interface IUser extends mongoose.Document {
     username:string,
     hash:string,
     salt:string,
-    toAvoid:string[],
-    favProducts:string[],
     isAdmin:number,
     register(user:Object),
-    login(user:Object)
+    login(user:Object) 
 }
 
 let userSchema = new mongoose.Schema({
@@ -26,14 +24,6 @@ let userSchema = new mongoose.Schema({
     salt: {
         required:true,
         type:String
-    },
-    toAvoid: {
-        type:[String],
-        default:[]
-    },
-    favProducts: {
-        type:[String],
-        default:[]
     },
     isAdmin: {
         type:Number,

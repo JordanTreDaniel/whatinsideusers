@@ -62,12 +62,35 @@ namespace whatinsideusers.Services {
             return this.IngredientResource.delete(id).$promise;
         }
     }
+    export class UserTagService {
+        constructor($resource: ng.resource.IResourceService) {
+            this.NewTagResource = $resource('/api/usertags/generate/:id');
+            this.TagResource = $resource('/api/usertags/:id');
+        }
+        public NewTagResource;
+        public TagResource;
+        public generate(id) {
+            console.log("Reached the service", id);
+            return this.NewTagResource.save(id).$promise;
+        }
+        public getTag(id) {
+            return this.TagResource.get(id).$promise;
+        } 
+        public update(tag) {
+            return this.TagResource.save(tag).$promise;
+        }
+        public delete(id) {
+            return this.TagResource.delete(id).promise;
+        }
+    }
     angular.module('whatinsideusers').service('userRegisterService', UserRegisterService);
     angular.module('whatinsideusers').service('userLoginService', UserLoginService);    
     angular.module('whatinsideusers').service('productService', ProductService);
     angular.module('whatinsideusers').service('queryService', QueryService);
     angular.module('whatinsideusers').service('masterUserService', MasterUserService);
     angular.module('whatinsideusers').service('ingredientService', IngredientService);
+    angular.module('whatinsideusers').service('userTagService', UserTagService);
+    
     
     
     

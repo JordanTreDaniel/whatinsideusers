@@ -1,8 +1,9 @@
-<h1>Welcome to your dashboard, {{controller.currentUser}}!</h1>
+<h1>Welcome to your dashboard, {{controller.currentUser.username}}!</h1>
 
-
+<!--This is the area for working with the blocking of products, as well as bookmarked products-->
+<div></div>
 <!--Make this unseen to regular users later on-->
-<div layout="column">   
+<div layout="column" ng-disabled="controller.currentUser.isAdmin < 1" ng-show="controller.currentUser.isAdmin > 1">   
     <!--This is the div where searching and selecting of currentIng happens-->
     <div layout="row">
         <!--Ing Search-->

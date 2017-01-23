@@ -1,6 +1,6 @@
 import * as express from 'express';
 import User from '../models/User';
-
+import UserTag from '../models/Usertag';
 
 import * as crypto from 'crypto';
 import * as jwt from 'jsonwebtoken';

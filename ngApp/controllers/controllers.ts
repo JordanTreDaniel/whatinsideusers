@@ -99,6 +99,7 @@ namespace whatinsideusers.Controllers {
         constructor(
             private userRegisterService: whatinsideusers.Services.UserRegisterService,
             private userLoginService: whatinsideusers.Services.UserLoginService,
+            private userTagService: whatinsideusers.Services.UserTagService,
             private $http: ng.IHttpProvider,
             private $state: ng.ui.IStateService
             ) {}
@@ -123,7 +124,13 @@ namespace whatinsideusers.Controllers {
                         this.regError = `Sorry, there is a problem with the ${errors.errors[Object.keys(errors.errors)[0]].path} that you have selected.`
                     } else {
                         console.log("Registered.", results);
-                    this.login(this.user);
+                        //Generate a tag for the user to store preferences and such
+                        this.userTagService.generate({id: this.user._id}).then((results) => {
+                            console.log("Gen tag success", results);
+                            this.login(this.user);
+                        }).catch((err) => {
+                            console.log("Error gen tag for user", err);
+                        });
                     }
                 }).catch((err) => {
                     console.log("Not Registered", err);
@@ -180,9 +187,18 @@ namespace whatinsideusers.Controllers {
         
     }
     export class DashboardController {
-        constructor(private ingredientService: whatinsideusers.Services.IngredientService) {
+        constructor(
+            private ingredientService: whatinsideusers.Services.IngredientService,
+            private masterUserService: whatinsideusers.Services.MasterUserService,
             
+            ) {
+            masterUserService.getCurrentUser().then((user) => {
+                this.currentUser = user.user;
+            }).catch((err) => {
+                console.log("Error grabbing user", err);
+            }); 
         }
+        public currentUser;
         public ingSearch;
         public ingList;
         public currentIng;
