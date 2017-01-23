@@ -9,6 +9,7 @@ export interface IProduct extends mongoose.Document {
     usertags: string[],
     images: string[]
 }
+
 let productSchema = new mongoose.Schema({
     name: {type: String, required: true, default: []},   
     description: {type: String, required: false},
