@@ -68,31 +68,63 @@ namespace whatinsideusers.Controllers {
         
     }
     export class ProductController {
+        constructor(
+            private productService: whatinsideusers.Services.ProductService,
+            private ingredientService: whatinsideusers.Services.IngredientService,
+            private $stateParams: ng.ui.IStateParamsService,
+            private $http: ng.IHttpService,
+            private userTagService: whatinsideusers.Services.UserTagService,
+            private masterUserService: whatinsideusers.Services.MasterUserService,            
+            ) {
+                this.productService.getProduct({id: $stateParams['id']}).then((product) => {
+                    this.product = product;
+                }).catch((err) => {
+                    console.log("Controller: Err getting product", err);
+                });
+                masterUserService.getCurrentUser().then((user) => {
+                    this.currentUser = user.user;
+                    userTagService.getTag({id: user.user._id}).then((results) => {
+                        console.log("This is the tag we got", results.tag);
+                        this.userTag = results.tag;
+                    }).catch((err) => {
+                        console.log("Error grabbing the tag", err);
+                    })
+                }).catch((err) => {
+                    console.log("Error grabbing user", err);
+                });
+        }
         public product;
         public info;
         public currentIng;
+        public currentUser;
+        public userTag;
         public getInfo(ingredient) {
             this.ingredientService.search({name: ingredient})
             .then((results) => {
                 console.log("Found these", results);
                 this.currentIng = results.results[0];
                 console.log("Current ing is", this.currentIng);
-                
             }).catch((err) => {
                 console.log("Err getting ing", err);
             });
         }
-        constructor(
-            private productService: whatinsideusers.Services.ProductService,
-            private ingredientService: whatinsideusers.Services.IngredientService,
-            private $stateParams: ng.ui.IStateParamsService,
-            private $http: ng.IHttpService) {
-                this.productService.getProduct({id: $stateParams['id']}).then((product) => {
-                    this.product = product;
-                }).catch((err) => {
-                    console.log("Controller: Err getting product", err);
-                });
+        public updateTag() {
+            this.userTagService.update({tag: this.userTag}).catch((err) => {
+                console.log("Err updating tag", err);
+            });
         }
+        public add(field, item) {
+            this.userTag[field].push(this[item]._id);
+            this.updateTag();
+        }
+        public subtract(field, item) {
+            this.userTag[field].splice(this.userTag[field].indexOf(this[item]._id, 1));
+            this.updateTag();
+        }
+        public showOrHide(field, item) {
+            return this.userTag[field].includes(this[item]._id);
+        }
+        
 
     }
     export class RegisterController {

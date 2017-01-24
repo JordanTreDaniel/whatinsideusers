@@ -8,6 +8,16 @@
                 <div ng-repeat="img in controller.product.images">
                     <img width="100%"ng-src="{{img}}">
                 </div>
+                <div md-whiteframe='12' layout="row" flex='100' ng-show="controller.userTag">
+                    <!--To avoid a product or unavoid it-->
+                    <md-button class="md-warn" ng-click="controller.add('badProducts', 'product')" ng-hide="controller.showOrHide('badProducts', 'product')">Unavoided</md-button>
+                    <md-button class="md-warn md-raised" ng-click="controller.subtract('badProducts', 'product')" ng-hide="!(controller.showOrHide('badProducts', 'product'))">Avoided</md-button>
+                    <!--To fav a product or unfav it-->
+                    <md-button class="md-primary" ng-click="controller.add('favProducts', 'product')" ng-hide="controller.showOrHide('favProducts', 'product')">Unfavored</md-button>
+                    <md-button class="md-primary md-raised" ng-click="controller.subtract('favProducts', 'product')" ng-hide="!(controller.showOrHide('favProducts', 'product'))">Favored</md-button>
+                    
+                    
+                </div>
             </div>
             <div flex>
             
@@ -22,7 +32,7 @@
                     <b ng-if="controller.currentIng.definition">What is it?</b>
                     <p ng-model="controller.currentIng.definition">{{controller.currentIng.definition}}</p>
                     <!--Description-->
-                    <b ng-if="controller.currentIng.description">Why is in my food?</b>
+                    <b ng-if="controller.currentIng.description">Why is it in my food?</b>
                     <p ng-model="controller.currentIng.description">{{controller.currentIng.description}}</p>
                     <!--Health Cons-->
                     <b ng-if="controller.currentIng.healthCons">Health Cons</b>
@@ -30,6 +40,15 @@
                     <!--Health Pros-->
                     <b ng-if="controller.currentIng.healthPros">Health Pros</b>
                     <p ng-model="controller.currentIng.healthPros">{{controller.currentIng.healthPros}}</p>
+                    <div layout='row' flex="100" ng-show="controller.userTag">
+                        <!--To avoid or unavoid an ingredient-->
+                        <md-button class="md-warn" ng-click="controller.add('badIngredients', 'currentIng')" ng-hide="controller.showOrHide('badIngredients', 'currentIng')">Unavoided</md-button>
+                        <md-button class="md-raised md-warn" ng-click="controller.subtract('badIngredients', 'currentIng')" ng-hide="!(controller.showOrHide('badIngredients', 'currentIng'))">Avoided</md-button>
+                        <!--To favorite an ingredient-->
+                        <md-button class="md-primary" ng-click="controller.add('favIngredients', 'currentIng')" ng-hide="controller.showOrHide('favIngredients', 'currentIng')">Unfavored</md-button>                        
+                        <md-button class="md-raised md-primary" ng-click="controller.subtract('favIngredients', 'currentIng')" ng-hide="!(controller.showOrHide('favIngredients', 'currentIng'))">Favored</md-button>
+                        
+                    </div>
                 </div>
                 <div>
                     <br>
@@ -40,6 +59,7 @@
                 </div>
             </div>
         </div>
+        
         
     </div>
 </md-content>
